@@ -95,9 +95,18 @@ namespace jtx {
 
     JTX_HOSTDEV JTX_INLINE float round(float v) {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::round(v);
+        return ::roundf(v);
 #else
         return std::round(v);
+#endif
+    }
+
+    JTX_HOSTDEV JTX_INLINE
+    long lround(float v) {
+#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+        return ::lroundf()(v);
+#else
+        return std::lround(v);
 #endif
     }
 

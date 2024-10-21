@@ -12,3 +12,10 @@
     #define JTX_HOST
     #define JTX_INLINE inline
 #endif
+
+namespace jtx::pmr {
+template<typename Tp>
+class polymorphic_allocator;
+}
+
+using Allocator = jtx::pmr::polymorphic_allocator<std::byte>;
