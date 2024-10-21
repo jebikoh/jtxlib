@@ -252,29 +252,37 @@ namespace jtx {
     }
 
     // pow
+    JTX_HOSTDEV JTX_INLINE float pow(float v, float n) {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-    template <int n>
-    JTX_HOSTDEV JTX_INLINE float pow(float v) {
         return ::powf(v, n);
-    }
 #else
-    template <int n>
-    JTX_HOSTDEV JTX_INLINE float pow(float v) {
-        if constexpr (n < 0) return 1 / pow<-n>(v);
-        float n2 = pow<n / 2>(v);
-        return n2 * n2 * pow<n & 1>(v);
-    }
-
-    template <>
-    JTX_HOSTDEV JTX_INLINE float pow<1>(float v) {
-        return v;
-    }
-
-    template <>
-    JTX_HOSTDEV JTX_INLINE float pow<0>(float v) {
-        return 1;
-    }
+        return std::pow(v, n);
 #endif
+    }
+
+// #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+//     template <int n>
+//     JTX_HOSTDEV JTX_INLINE float pow(float v) {
+//         return ::powf(v, n);
+//     }
+// #else
+//     template <int n>
+//     JTX_HOSTDEV JTX_INLINE float pow(float v) {
+//         if constexpr (n < 0) return 1 / pow<-n>(v);
+//         float n2 = pow<n / 2>(v);
+//         return n2 * n2 * pow<n & 1>(v);
+//     }
+//
+//     template <>
+//     JTX_HOSTDEV JTX_INLINE float pow<1>(float v) {
+//         return v;
+//     }
+//
+//     template <>
+//     JTX_HOSTDEV JTX_INLINE float pow<0>(float v) {
+//         return 1;
+//     }
+// #endif
 
     JTX_FP_ONLY_T
     JTX_HOSTDEV JTX_INLINE T safeSqrt(T v) {
@@ -299,6 +307,14 @@ namespace jtx {
         return jtx::fma(t, evalPolynomial(t, coeffs...), c);
     }
 
+    JTX_HOSTDEV JTX_INLINE float exp(float n) {
+#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+    return ::expf(n);
+#else
+    return std::exp(n);
+#endif
+    }
+
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
     JTX_HOSTDEV JTX_INLINE float fastExp(float x) {
         return ::expf(x);
@@ -321,6 +337,10 @@ namespace jtx {
         return bitsToFloat(bits);
     }
 #endif
+
+    JTX_HOSTDEV JTX_INLINE float clampZero(float val) {
+        return jtx::max<float>(0.f, val);
+    }
 
     //region EFT
     struct FloatEFT {
