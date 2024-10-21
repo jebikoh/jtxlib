@@ -175,18 +175,18 @@ namespace jtx {
     //region LERP
     JTX_NUM_ONLY_T
     JTX_HOSTDEV JTX_INLINE auto lerp(const Vec2<T> &a, const Vec2<T> &b, float t) {
-        return a * (1 - t) + b * t;
+        return (1 - t) * a + b * t;
     }
 
     JTX_NUM_ONLY_T
     JTX_HOSTDEV JTX_INLINE auto
     lerp(const Vec3<T> &a, const Vec3<T> &b, float t) {
-        return (1.0f - t) * a + t * b;
+        return (1 - t) * a + b * t;
     }
 
     JTX_NUM_ONLY_T
     JTX_HOSTDEV JTX_INLINE auto lerp(const Vec4<T> &a, const Vec4<T> &b, float t) {
-        return a * (1 - t) + b * t;
+        return (1 - t) * a + b * t;
     }
     //endregion
 
