@@ -8,68 +8,6 @@
 #include <jtxlib.hpp>
 
 namespace jtx {
-    //region Basic Math Functions
-    template<typename T, typename U, typename V>
-    JTX_HOST constexpr
-    std::enable_if_t<std::is_arithmetic_v<T> && std::is_arithmetic_v<U> && std::is_arithmetic_v<V>, T>
-    clamp(T val, U lo, V hi) {
-        if (val < lo) return T(lo);
-        else if (val > hi) return T(hi);
-        else return val;
-    }
-
-    JTX_HOSTDEV JTX_INLINE float clamp(float val, float lo, float hi) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::fminf(::fmaxf(val, lo), hi);
-#else
-        return std::clamp(val, lo, hi);
-#endif
-    }
-
-    JTX_HOSTDEV JTX_INLINE double clamp(double val, double lo, double hi) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::fmin(::fmax(val, lo), hi);
-#else
-        return std::clamp(val, lo, hi);
-#endif
-    }
-
-    JTX_NUM_ONLY_T
-    JTX_HOSTDEV JTX_INLINE T max(T a, T b) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::max(a, b);
-#else
-        return std::max<T>(a, b);
-#endif
-    }
-
-    JTX_NUM_ONLY_T
-    JTX_HOSTDEV JTX_INLINE T max(T a, T b, T c) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::max(0, ::max(a, b));
-#else
-        return std::max<T>({a, b, c});
-#endif
-    }
-
-    JTX_NUM_ONLY_T
-    JTX_HOSTDEV JTX_INLINE T min(T a, T b) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::min(a, b);
-#else
-        return std::min<T>(a, b);
-#endif
-    }
-
-    JTX_NUM_ONLY_T
-    JTX_HOSTDEV JTX_INLINE T min(T a, T b, T c) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::min(0, ::min(a, b));
-#else
-        return std::min<T>({a, b, c});
-#endif
-    }
-
     JTX_NUM_ONLY_T
     JTX_HOSTDEV JTX_INLINE T abs(T v) {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)

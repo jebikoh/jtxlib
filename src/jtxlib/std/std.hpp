@@ -365,5 +365,14 @@ JTX_HOSTDEV inline constexpr span<const T> makeConstSpan(const T (&arr)[N]) noex
     return span<const T>(arr, N);
 }
 
+template<class ForwardIt>
+JTX_HOSTDEV
+ForwardIt max_element(ForwardIt first, ForwardIt last) {
+    if (first == last) return last;
+    ForwardIt largest = first;
+    while (++first != last) if (*largest < *first) largest = first;
+    return largest;
+}
+
 }
 
