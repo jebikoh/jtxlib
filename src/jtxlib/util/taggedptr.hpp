@@ -325,6 +325,9 @@ namespace jtx {
       JTX_HOSTDEV bool operator!=(const TaggedPtr &p) const {
         return fptr != p.fptr;
       }
+
+        JTX_HOSTDEV
+        explicit operator bool() const { return (fptr & PTR_MASK) != 0; }
       //endregion
 
       //region Getters
