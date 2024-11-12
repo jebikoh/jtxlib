@@ -1,23 +1,20 @@
 #pragma once
-#include <jtxlib/math/vec3.hpp>
-#include <jtxlib/math/vec4.hpp>
+#include <jtxlib/math/vector.hpp>
 #include <jtxlib/math/mat4.hpp>
 
 namespace jtx::gltf {
-    struct Scene {
-        // Array of indices to the scene's children nodes
-        std::vector<size_t> nodes;
-    };
-
     struct Node {
-        enum Type {
+        enum class Type {
             MESH,
             CAMERA
         };
 
-        // Specifies what the index is for
         Node::Type type;
-        size_t index;
+        // Mesh or camera index
+        union {
+            size_t meshIndex;
+            size_t cameraIndex;
+        };
         std::vector<size_t> children;
 
         Mat4 matrix;
@@ -26,38 +23,21 @@ namespace jtx::gltf {
         Vec3f scale;
     };
 
-    struct GLTF {
-        size_t defaultScene;
-        std::vector<Scene> scenes;
-        std::vector<Node> nodes;
-    };
-
     struct Attributes {
         size_t position;
         size_t normal;
         size_t texCoord;
     };
 
+    // Only support triangles
+    // No support for morphs
     struct Primitive {
-        enum Mode {
-            POINTS,
-            LINES,
-            LINE_LOOP,
-            LINE_STRIP,
-            TRIANGLES,
-            TRIANGLE_STRIP,
-            TRIANGLE_FAN
-        };
-
-        Mode mode;
         size_t indices;
-
-        // No support for morphs
-        std::vector<Attributes> attributes;
+        Attributes attributes;
     };
 
     struct Camera {
-        enum Type {
+        enum class Type {
             PERSPECTIVE,
             ORTHOGRAPHIC
         };
@@ -75,6 +55,35 @@ namespace jtx::gltf {
         };
         float znear;
         float zfar;
+    };
+
+    struct Scene {
+        // Array of indices to the scene's children nodes
+        std::vector<size_t> nodes;
+    };
+
+    struct GLTF {
+        size_t defaultScene;
+        std::vector<Scene> scenes;
+        std::vector<Node> nodes;
+
+        // Controls the layout of position data
+        // Normals and UVs are always AoS
+        // Not functional yet
+        enum class Layout {
+            SOA,
+            AOS
+        };
+        Layout layout;
+
+
+        struct Buffer {
+            std::vector<Vec3f> positions;
+            std::vector<Vec3f> normals;
+            std::vector<Vec2f> UVs;
+        };
+        Buffer buffer;
+        std::vector<Camera> cameras;
     };
 }
 
