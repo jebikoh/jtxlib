@@ -119,6 +119,8 @@ set(JTXLIB_HEADERS
         src/jtxlib/util.hpp
         src/jtxlib/containers.hpp
         src/jtxlib/std.hpp
+        src/jtxlib/gltf/gltf.cpp
+        src/jtxlib/gltf/gltf.hpp
 )
 
 add_library(jtxlib STATIC
