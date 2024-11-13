@@ -72,6 +72,11 @@ endif ()
 
 #endregion
 
+# ASSIMP
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+add_subdirectory(lib/assimp)
+
 #region Library Files
 set(JTXLIB_MATH
         src/jtxlib/math/vec2.hpp
@@ -119,8 +124,9 @@ set(JTXLIB_HEADERS
         src/jtxlib/util.hpp
         src/jtxlib/containers.hpp
         src/jtxlib/std.hpp
-        src/jtxlib/gltf/gltf.cpp
-        src/jtxlib/gltf/gltf.hpp
+        src/jtxlib/mesh/gltf.hpp
+        src/jtxlib/mesh/scene.hpp
+        src/jtxlib/mesh/scene.cpp
 )
 
 add_library(jtxlib STATIC
@@ -138,6 +144,8 @@ set_target_properties(jtxlib PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
 )
+
+target_link_libraries(jtxlib PRIVATE assimp)
 
 set(CUDA_ARCH "75" CACHE STRING "CUDA architecture (e.g. 75 for SM 7.5)")
 if(CUDA_ENABLED)
@@ -173,3 +181,12 @@ if (BUILD_TESTS)
     add_subdirectory("tests")
 endif ()
 #endregion
+
+# Copy over assimp
+if(WIN32)
+    add_custom_command(TARGET jtxlib POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_FILE:assimp>
+            $<TARGET_FILE_DIR:jtxlib>
+    )
+endif()

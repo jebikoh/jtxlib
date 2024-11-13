@@ -48,7 +48,7 @@ public:
     JTX_HOSTDEV
     static Vec3 fromXY(Vec2<T> xy, float Y) {
         if (xy.y == 0) return {0, 0, 0};
-        return {xy.x * y / xy.y, y, (1 - xy.x - xy.y) * y / xy.y };
+        return {xy.x * Y / xy.y, Y, (1 - xy.x - xy.y) * Y / xy.y };
     }
 
     JTX_HOSTDEV ~Vec3() = default;

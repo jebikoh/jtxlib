@@ -12,6 +12,7 @@
     #define JTX_HOST
     #define JTX_INLINE inline
 #endif
+#include <cstddef>
 
 namespace jtx::pmr {
 template<typename Tp>

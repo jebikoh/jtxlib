@@ -6,7 +6,7 @@
 //region BB3f Constructors
 TEST_CASE("Pow gives same result as std::pow", "[Math]") {
     float ref = std::pow(2.5f, 9.0f);
-    float result = jtx::pow<9>(2.5f);
+    float result = jtx::pow(2.5f, 9.0f);
 
     REQUIRE_THAT(result, Catch::Matchers::WithinRel(ref, T_EPS));
 }
