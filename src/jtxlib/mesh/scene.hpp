@@ -1,26 +1,54 @@
 #pragma once
 #include <vector>
+#include <type_traits>
+
 // Roughly follow Assimp hierarchy
+// Pass BufferAOS to store mesh in AoS layout
+// Pass BufferSOA to store mesh in SoA layout
 namespace jtx::scene {
     struct Face {
-        size_t v1, v2, v3;
+        uint32_t v1, v2, v3;
     };
 
+    struct Vertex {
+        float x, y, z;
+        float nx, ny, nz;
+        float u, v;
+    };
+
+    struct BufferAOS {
+        std::vector<Vertex> vertices;
+    };
+
+    struct BufferSOA {
+        std::vector<float> x;
+        std::vector<float> y;
+        std::vector<float> z;
+
+        std::vector<float> nx;
+        std::vector<float> ny;
+        std::vector<float> nz;
+
+        std::vector<float> u;
+        std::vector<float> v;
+    };
+
+    template <typename T>
+    struct is_valid_buffer : std::false_type {};
+
+    template <>
+    struct is_valid_buffer<BufferAOS> : std::true_type {};
+
+    template <>
+    struct is_valid_buffer<BufferSOA> : std::true_type {};
+
+    template <typename T>
+    constexpr bool is_valid_buffer_v = is_valid_buffer<T>::value;
+
+    template <typename Buffer>
     struct Mesh {
-        struct BufferSOA {
-            std::vector<float> positions_x;
-            std::vector<float> positions_y;
-            std::vector<float> positions_z;
-
-            std::vector<float> normals_x;
-            std::vector<float> normals_y;
-            std::vector<float> normals_z;
-
-            std::vector<float> texCoords_u;
-            std::vector<float> texCoords_v;
-        };
-
-        BufferSOA buffer;
+        static_assert(is_valid_buffer_v<Buffer>, "Mesh can only be instantiated with BufferAOS or BufferSOA");
+        Buffer buffer;
         std::vector<Face> indices;
     };
 
@@ -31,10 +59,14 @@ namespace jtx::scene {
         std::vector<mesh_index> meshes;
     };
 
+    template <typename Buffer>
     struct Scene {
+        static_assert(is_valid_buffer_v<Buffer>, "Mesh can only be instantiated with BufferAOS or BufferSOA");
+
         Node rootNode;
-        std::vector<Mesh> meshes;
+        std::vector<Mesh<Buffer>> meshes;
     };
 
-    Scene loadOBJ(const std::string &filepath);
+    template <typename Buffer>
+    Scene<Buffer> loadOBJ(const std::string &filepath);
 }
