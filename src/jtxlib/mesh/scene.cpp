@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#ifdef USE_ASSIMP
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -109,3 +110,4 @@ jtxs::Scene<Buffer> loadOBJ(const std::string &filepath) {
     scene.rootNode = processNode(ai_scene->mRootNode);
     return scene;
 }
+#endif

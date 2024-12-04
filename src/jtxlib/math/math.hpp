@@ -180,8 +180,8 @@ namespace jtx {
     }
 
     JTX_FP_ONLY_T
-    JTX_HOSTDEV JTX_INLINE T
-    sqrt(T val) {
+    JTX_HOSTDEV JTX_INLINE
+    T sqrt(T val) {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
         return ::sqrt(val);
 #else

@@ -1,4 +1,5 @@
 #pragma once
+#ifdef USE_ASSIMP
 #include <vector>
 #include <type_traits>
 
@@ -70,3 +71,4 @@ namespace jtx::scene {
     template <typename Buffer>
     Scene<Buffer> loadOBJ(const std::string &filepath);
 }
+#endif

@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.27)
 
+option(USE_ASSIMP "Enable model loading via assimp" OFF)
 option(USE_CUDA "Enable CUDA support" OFF)
+option(NDEBUG "Disables debug assertions" OFF)
+option(BUILD_TESTS "Build Catch2 tests" OFF)
+
 if(USE_CUDA)
     project(jtxlib VERSION 1.0.0 LANGUAGES CXX CUDA)
 else()
@@ -36,11 +40,13 @@ endif()
 #endregion
 
 #region Assertion modes
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_compile_definitions(DEBUG_ASSERT)
-elseif (CMAKE_BUILD_TYPE STREQUAL "Test")
-    add_compile_definitions(TEST_ASSERT)
-endif ()
+if (NDEBUG)
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        add_compile_definitions(DEBUG_ASSERT)
+    elseif (CMAKE_BUILD_TYPE STREQUAL "Test")
+        add_compile_definitions(TEST_ASSERT)
+    endif ()
+endif()
 #endregion
 
 #region Check CXX compilation
@@ -73,9 +79,13 @@ endif ()
 #endregion
 
 # ASSIMP
-set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
-set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-add_subdirectory(lib/assimp)
+if (USE_ASSIMP)
+    add_definitions(-USE_ASSIMP)
+    message(STATUS "[JTXLib] Enabling assimp scene loading")
+    set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
+    set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    add_subdirectory(lib/assimp)
+endif()
 
 #region Library Files
 set(JTXLIB_MATH
@@ -145,7 +155,9 @@ set_target_properties(jtxlib PROPERTIES
         CXX_STANDARD_REQUIRED ON
 )
 
-target_link_libraries(jtxlib PRIVATE assimp)
+if(USE_ASSIMP)
+    target_link_libraries(jtxlib PRIVATE assimp)
+endif()
 
 set(CUDA_ARCH "75" CACHE STRING "CUDA architecture (e.g. 75 for SM 7.5)")
 if(CUDA_ENABLED)
@@ -170,7 +182,6 @@ endif()
 #endregion
 
 #region Tests
-option(BUILD_TESTS "Build tests" ON)
 if (BUILD_TESTS)
     message(STATUS "[JTXLib] Building tests")
     add_subdirectory("lib/Catch2")
@@ -183,10 +194,12 @@ endif ()
 #endregion
 
 # Copy over assimp
-if(WIN32)
-    add_custom_command(TARGET jtxlib POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<TARGET_FILE:assimp>
-            $<TARGET_FILE_DIR:jtxlib>
-    )
+if (USE_ASSIMP)
+    if(WIN32)
+        add_custom_command(TARGET jtxlib POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                $<TARGET_FILE:assimp>
+                $<TARGET_FILE_DIR:jtxlib>
+        )
+    endif()
 endif()
