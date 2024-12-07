@@ -198,6 +198,11 @@ namespace jtx {
 #endif
     }
 
+    JTX_HOST JTX_INLINE double pow(const double v, const double n) {
+        return std::pow(v, n);
+    }
+
+
 // #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
 //     template <int n>
 //     JTX_HOSTDEV JTX_INLINE float pow(float v) {
