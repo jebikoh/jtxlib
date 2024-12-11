@@ -92,6 +92,11 @@ public:
         z--;
         return temp;
     }
+
+    template <typename U>
+    JTX_HOSTDEV explicit operator Vec3<U>() const {
+        return {U(x), U(y), U(z)};
+    }
     #pragma endregion
 
     #pragma region Binary operators
