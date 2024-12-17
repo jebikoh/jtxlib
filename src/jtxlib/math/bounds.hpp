@@ -5,6 +5,7 @@
 #include <jtxlib/math/vec2.hpp>
 #include <jtxlib/math/vec3.hpp>
 #include <jtxlib/math/vecmath.hpp>
+#include <jtxlib/std/std.hpp>
 #include <jtxlib/util/assert.hpp>
 
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
@@ -174,6 +175,27 @@ public:
         *center = (pmin + pmax) / 2;
         // PBRT: when would the center be outside the box?
         *radius = inside(*center) ? distance(*center, pmax) : 0;
+    }
+
+    [[nodiscard]] JTX_DEV bool intersectP(const Point3f &o, const Vec3f &d, const float tMax, float *hitT0, float *hitT1) const {
+        float t0 = 0;
+        float t1 = tMax;
+        for (int i = 0; i < 3; ++i) {
+            float invDir = 1 / d[i];
+            float tNear = (pmin[i] - o[i]) * invDir;
+            float tFar = (pmax[i] - o[i]) * invDir;
+
+            if (tNear > tFar) jtx::swap(tNear, tFar);
+            // Don't use min/max to avoid NaN issues
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1) return false;
+        }
+
+        if (hitT0) *hitT0 = t0;
+        if (hitT1) *hitT1 = t1;
+
+        return true;
     }
     //endregion
 };
