@@ -185,7 +185,7 @@ public:
             float tNear = (pmin[i] - o[i]) * invDir;
             float tFar = (pmax[i] - o[i]) * invDir;
 
-            if (tNear > tFar) jtx::swap(tNear, tFar);
+            if (tNear > tFar) jstd::swap(tNear, tFar);
             // Don't use min/max to avoid NaN issues
             t0 = tNear > t0 ? tNear : t0;
             t1 = tFar < t1 ? tFar : t1;

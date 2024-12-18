@@ -3,13 +3,13 @@
 
 #include <algorithm>
 
-namespace jtx {
-JTX_HOSTDEV
+namespace jstd {
+    JTX_HOSTDEV
 template <typename T>
 void swap(T &a, T &b) noexcept {
-    T tmp = std::move(a);
-    a = std::move(b);
-    b = std::move(tmp);
+    T tmp = ::std::move(a);
+    a = ::std::move(b);
+    b = ::std::move(tmp);
 }
 
 template <typename T, int N>
