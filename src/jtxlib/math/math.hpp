@@ -179,6 +179,10 @@ namespace jtx {
         return a * b - c * d;
     }
 
+    JTX_FP_ONLY_T JTX_HOSTDEV T sqr(T val) {
+        return val * val;
+    }
+
     JTX_FP_ONLY_T
     JTX_HOSTDEV JTX_INLINE
     T sqrt(T val) {
@@ -332,4 +336,13 @@ namespace jtx {
         return float(innerProd(a, b, terms...));
     }
     //endregion
+
+    JTX_HOSTDEV
+    JTX_INLINE float erf(float val) {
+#ifdef (USE_CUDA)
+        return ::erff(val);
+#else
+        return std::erf(val);
+#endif
+    }
 }

@@ -45,6 +45,7 @@ namespace jtx {
     constexpr float NEG_INFINITY_F = -std::numeric_limits<float>::infinity();
     constexpr double NEG_INFINITY_D = -std::numeric_limits<double>::infinity();
     constexpr float EPSILON = 0.00001f;
+    constexpr float ONE_MINUS_EPSILON = 0x1.fffffep-1;
 #endif
 }
 

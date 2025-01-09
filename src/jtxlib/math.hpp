@@ -9,3 +9,4 @@
 #include "math/spherical.hpp"
 #include "math/transform.hpp"
 #include "math/vector.hpp"
+#include "math/dist.hpp"

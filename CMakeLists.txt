@@ -137,6 +137,7 @@ set(JTXLIB_HEADERS
         src/jtxlib/mesh/gltf.hpp
         src/jtxlib/mesh/scene.hpp
         src/jtxlib/mesh/scene.cpp
+        src/jtxlib/math/dist.hpp
 )
 
 add_library(jtxlib STATIC
