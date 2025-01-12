@@ -339,7 +339,7 @@ namespace jtx {
 
     JTX_HOSTDEV
     JTX_INLINE float erf(float val) {
-#ifdef (USE_CUDA)
+#ifdef USE_CUDA
         return ::erff(val);
 #else
         return std::erf(val);
