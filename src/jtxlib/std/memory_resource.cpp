@@ -41,7 +41,7 @@ class newdel_res_t final : public memory_resource {
 };
 
 class null_res_t final : public memory_resource {
-    void *do_allocate(size_t bytes, size_t alignment) override { std::__throw_bad_alloc(); }
+    void *do_allocate(size_t bytes, size_t alignment) override { throw std::bad_alloc(); }
 
     void do_deallocate(void *p, size_t bytes, size_t alignment) noexcept override {}
 

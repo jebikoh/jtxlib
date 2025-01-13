@@ -2,6 +2,7 @@
 
 #include<cmath>
 #include<stdexcept>
+#include <string>
 #include <jtxlib/math/constants.hpp>
 #include <jtxlib/math/numerical.hpp>
 #include <jtxlib/util/assert.hpp>
