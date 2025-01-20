@@ -84,7 +84,7 @@ namespace jtx {
                                                         f.x.z, f.y.z, f.z.z, 0.0f,
                                                         0.0f, 0.0f, 0.0f, 1.0f) {}
 
-        JTX_HOSTDEV ~Mat4() = default;
+        ~Mat4() = default;
 
         JTX_HOSTDEV static Mat4 identity() {
             return Mat4(1.0f);

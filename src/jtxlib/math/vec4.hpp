@@ -45,7 +45,7 @@ namespace jtx {
         JTX_HOSTDEV Vec4(const Vec2<T> &other, T z, T w) : x(other.x), y(other.y), z(z), w(w) { ASSERT(valid()); };
         JTX_HOSTDEV Vec4(const Vec3<T> &other, T w) : x(other.x), y(other.y), z(other.z), w(w) { ASSERT(valid()); };
 
-        JTX_HOSTDEV ~Vec4() = default;
+        ~Vec4() = default;
         //endregion
 
         //region Unary operators

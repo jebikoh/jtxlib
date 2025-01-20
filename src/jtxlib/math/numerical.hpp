@@ -89,8 +89,9 @@ JTX_HOSTDEV JTX_INLINE
 #endif
 }
 
-JTX_HOST JTX_FP_ONLY_T
-        JTX_INLINE bool
+JTX_FP_ONLY_T
+JTX_HOST
+JTX_INLINE bool
         equals(T a, T b, T epsilon = EPSILON) {
     return std::abs(a - b) < epsilon;
 }
@@ -181,8 +182,8 @@ JTX_HOSTDEV JTX_INLINE T min(T a, T b, T c) {
 #endif
 }
 
-JTX_HOSTDEV
 template<typename P>
+JTX_HOSTDEV
 JTX_INLINE size_t findInterval(size_t sz, const P &pred) {
     using ssize_t = std::make_signed_t<size_t>;
     ssize_t size = static_cast<ssize_t>(sz) - 2;

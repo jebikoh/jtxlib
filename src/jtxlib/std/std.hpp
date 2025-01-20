@@ -4,9 +4,8 @@
 #include <algorithm>
 
 namespace jstd {
-    JTX_HOSTDEV
 template <typename T>
-void swap(T &a, T &b) noexcept {
+JTX_HOSTDEV void swap(T &a, T &b) noexcept {
     T tmp = ::std::move(a);
     a = ::std::move(b);
     b = ::std::move(tmp);

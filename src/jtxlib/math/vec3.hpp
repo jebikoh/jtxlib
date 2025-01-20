@@ -51,7 +51,7 @@ public:
         return {xy.x * Y / xy.y, Y, (1 - xy.x - xy.y) * Y / xy.y };
     }
 
-    JTX_HOSTDEV ~Vec3() = default;
+    ~Vec3() = default;
     #pragma endregion
 
     #pragma region Unary operators

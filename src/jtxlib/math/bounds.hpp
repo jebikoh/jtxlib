@@ -30,7 +30,7 @@ public:
     }
 
     //region Constructors
-    JTX_DEV AABB3() {
+    JTX_HOSTDEV AABB3() {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
         T minval = cuda::std::numeric_limits<T>::lowest();
         T maxval = cuda::std::numeric_limits<T>::max();
@@ -43,21 +43,21 @@ public:
         pmax = {minval, minval, minval};
     }
 
-    JTX_DEV AABB3(const Point3<T> &a, const Point3<T> &b) {
+    JTX_HOSTDEV AABB3(const Point3<T> &a, const Point3<T> &b) {
         pmin = jtx::min(a, b);
         pmax = jtx::max(a, b);
     }
 
-    JTX_DEV explicit AABB3(const Point3<T> &p) : pmin(p), pmax(p) {
+    JTX_HOSTDEV explicit AABB3(const Point3<T> &p) : pmin(p), pmax(p) {
     }
 
-    JTX_DEV AABB3(const AABB3 &other) {
+    JTX_HOSTDEV AABB3(const AABB3 &other) {
         pmin = Point3<T>(other.pmin);
         pmax = Point3<T>(other.pmax);
     }
 
     JTX_NUM_ONLY(U)
-    JTX_DEV explicit AABB3(const AABB3<U> &other) {
+    JTX_HOSTDEV explicit AABB3(const AABB3<U> &other) {
         if (other.isEmpty()) {
             *this = AABB3();
         } else {
@@ -66,104 +66,104 @@ public:
         }
     }
 
-    JTX_DEV ~AABB3() = default;
+    ~AABB3() = default;
     //endregion
 
     //region Operators
-    JTX_DEV bool operator==(const AABB3 &other) const {
+    JTX_HOSTDEV bool operator==(const AABB3 &other) const {
         return pmin == other.pmin && pmax == other.pmax;
     }
 
-    JTX_DEV bool operator!=(const AABB3 &other) const {
+    JTX_HOSTDEV bool operator!=(const AABB3 &other) const {
         return pmin != other.pmin || pmax != other.pmax;
     }
     //endregion
 
     //region Member functions
-    JTX_DEV bool equals(const AABB3 &other, T epsilon) const {
+    JTX_HOSTDEV bool equals(const AABB3 &other, T epsilon) const {
         return pmin.equals(other.pmin, epsilon) && pmax.equals(other.pmax, epsilon);
     }
 
     // Modified from https://pbr-book.org/4ed/Geometry_and_Transformations/Bounding_Boxes
-    [[nodiscard]] JTX_DEV Point3<T> corner(const int i) const {
+    [[nodiscard]] JTX_HOSTDEV Point3<T> corner(const int i) const {
         ASSERT(i >= 0 && i < 8);
         return Point3<T>(i & 1 ? pmax.x : pmin.x,
                          i & 2 ? pmax.y : pmin.y,
                          i & 4 ? pmax.z : pmin.z);
     }
 
-    JTX_DEV AABB3 &merge(const Point3<T> &p) {
+    JTX_HOSTDEV AABB3 &merge(const Point3<T> &p) {
         pmin = jtx::min(pmin, p);
         pmax = jtx::max(pmax, p);
         return *this;
     }
 
-    JTX_DEV AABB3 &merge(const AABB3 &b) {
+    JTX_HOSTDEV AABB3 &merge(const AABB3 &b) {
         pmin = jtx::min(pmin, b.pmin);
         pmax = jtx::max(pmax, b.pmax);
         return *this;
     }
 
-    JTX_DEV bool overlaps(const AABB3 &b) const {
+    JTX_HOSTDEV bool overlaps(const AABB3 &b) const {
         return pmin.x <= b.pmax.x && pmax.x >= b.pmin.x &&
                pmin.y <= b.pmax.y && pmax.y >= b.pmin.y &&
                pmin.z <= b.pmax.z && pmax.z >= b.pmin.z;
     }
 
-    JTX_DEV bool inside(const Point3<T> &p) const {
+    JTX_HOSTDEV bool inside(const Point3<T> &p) const {
         return p.x >= pmin.x && p.x <= pmax.x &&
                p.y >= pmin.y && p.y <= pmax.y &&
                p.z >= pmin.z && p.z <= pmax.z;
     }
 
-    JTX_DEV bool insideExclusive(const Point3<T> &pt) const {
+    JTX_HOSTDEV bool insideExclusive(const Point3<T> &pt) const {
         return pt.x > pmin.x && pt.x < pmax.x &&
                pt.y > pmin.y && pt.y < pmax.y &&
                pt.z > pmin.z && pt.z < pmax.z;
     }
 
-    JTX_DEV AABB3 &expand(T delta) {
+    JTX_HOSTDEV AABB3 &expand(T delta) {
         ASSERT(delta >= 0);
         pmin -= delta;
         pmax += delta;
         return *this;
     }
 
-    JTX_DEV AABB3 &shrink(T delta) {
+    JTX_HOSTDEV AABB3 &shrink(T delta) {
         ASSERT(delta >= 0);
         pmin += delta;
         pmax -= delta;
         return *this;
     }
 
-    JTX_DEV Vec3<T> diagonal() const {
+    JTX_HOSTDEV Vec3<T> diagonal() const {
         return pmax - pmin;
     }
 
-    JTX_DEV T surfaceArea() const {
+    JTX_HOSTDEV T surfaceArea() const {
         Vec3<T> d = diagonal();
         return 2 * (d.x * d.y + d.x * d.z + d.y * d.z);
     }
 
-    JTX_DEV T volume() const {
+    JTX_HOSTDEV T volume() const {
         Vec3<T> d = diagonal();
         return d.x * d.y * d.z;
     }
 
-    [[nodiscard]] JTX_DEV int maxDim() const {
+    [[nodiscard]] JTX_HOSTDEV int maxDim() const {
         if (Vec3<T> d = diagonal(); d.x > d.y && d.x > d.z) return 0;
         else if (d.y > d.z)
             return 1;
         return 2;
     }
 
-    [[nodiscard]] JTX_DEV Point3f lerp(const Point3f &t) const {
+    [[nodiscard]] JTX_HOSTDEV Point3f lerp(const Point3f &t) const {
         return Point3f(jtx::lerp(pmin.x, pmax.x, t.x),
                        jtx::lerp(pmin.y, pmax.y, t.y),
                        jtx::lerp(pmin.z, pmax.z, t.z));
     }
 
-    JTX_DEV Vec3f offset(Point3f &p) const {
+    JTX_HOSTDEV Vec3f offset(Point3f &p) const {
         Vec3f o = p - pmin;
         if (pmax.x > pmin.x) o.x /= pmax.x - pmin.x;
         if (pmax.y > pmin.y) o.y /= pmax.y - pmin.y;
@@ -171,13 +171,13 @@ public:
         return o;
     }
 
-    JTX_DEV void boundingSphere(Point3<T> *center, T *radius) const {
+    JTX_HOSTDEV void boundingSphere(Point3<T> *center, T *radius) const {
         *center = (pmin + pmax) / 2;
         // PBRT: when would the center be outside the box?
         *radius = inside(*center) ? distance(*center, pmax) : 0;
     }
 
-    [[nodiscard]] JTX_DEV bool intersectP(const Point3f &o, const Vec3f &d, const float tMax, float *hitT0, float *hitT1) const {
+    [[nodiscard]] JTX_HOSTDEV bool intersectP(const Point3f &o, const Vec3f &d, const float tMax, float *hitT0, float *hitT1) const {
         float t0 = 0;
         float t1 = tMax;
         for (int i = 0; i < 3; ++i) {
@@ -248,7 +248,7 @@ public:
         }
     }
 
-    JTX_DEV ~AABB2() = default;
+    ~AABB2() = default;
     //endregion
 
     //region Operators
