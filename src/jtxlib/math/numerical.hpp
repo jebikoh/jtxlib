@@ -106,7 +106,7 @@ JTX_HOSTDEV JTX_INLINE float round(float v) {
 
 JTX_HOSTDEV JTX_INLINE long lround(float v) {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-    return ::lroundf()(v);
+    return ::lroundf(v);
 #else
     return std::lround(v);
 #endif

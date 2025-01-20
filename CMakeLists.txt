@@ -122,9 +122,9 @@ set(JTXLIB_CONTAINERS
 )
 
 set(JTXLIB_STD
-        src/jtxlib/std/memory_resource.hpp
-        src/jtxlib/std/memory_resource.cpp
-        src/jtxlib/std/std.hpp
+        src/jtxlib/jstd/memory_resource.hpp
+        src/jtxlib/jstd/memory_resource.cpp
+        src/jtxlib/jstd/jstd.hpp
 )
 
 set(JTXLIB_HEADERS
@@ -133,7 +133,6 @@ set(JTXLIB_HEADERS
         src/jtxlib/simd.hpp
         src/jtxlib/util.hpp
         src/jtxlib/containers.hpp
-        src/jtxlib/std.hpp
         src/jtxlib/mesh/gltf.hpp
         src/jtxlib/mesh/scene.hpp
         src/jtxlib/mesh/scene.cpp

@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cppcoreguidelines-pro-type-member-init"
 #pragma once
 
 #include <span>
@@ -543,4 +541,3 @@ namespace jtx {
         return a.equals(b, epsilon);
     }
 }
-#pragma clang diagnostic pop

@@ -5,7 +5,6 @@
 #include <jtxlib/math/vec2.hpp>
 #include <jtxlib/math/vec3.hpp>
 #include <jtxlib/math/vecmath.hpp>
-#include <jtxlib/std/std.hpp>
 #include <jtxlib/util/assert.hpp>
 
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
@@ -185,7 +184,7 @@ public:
             float tNear = (pmin[i] - o[i]) * invDir;
             float tFar = (pmax[i] - o[i]) * invDir;
 
-            if (tNear > tFar) jstd::swap(tNear, tFar);
+            if (tNear > tFar) std::swap(tNear, tFar);
             // Don't use min/max to avoid NaN issues
             t0 = tNear > t0 ? tNear : t0;
             t1 = tFar < t1 ? tFar : t1;
