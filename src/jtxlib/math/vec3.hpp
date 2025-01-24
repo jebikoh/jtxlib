@@ -97,6 +97,11 @@ public:
     JTX_HOSTDEV explicit operator Vec3<U>() const {
         return {U(x), U(y), U(z)};
     }
+
+    JTX_HOSTDEV explicit operator bool() const {
+        return x || y || z;
+    }
+
     #pragma endregion
 
     #pragma region Binary operators
