@@ -227,7 +227,11 @@ namespace jtx {
             return jtx::abs(dot(other));
         }
 
-        [[nodiscard]] inline float len() const { return jtx::sqrt(x * x + y * y); }
+        JTX_HOSTDEV float len() const { return jtx::sqrt(x * x + y * y); }
+
+        JTX_HOSTDEV float lenSqr() const {
+            return x * x + y * y;
+        }
 
         JTX_HOSTDEV JTX_INLINE Vec2 &normalize() {
             float l = len();

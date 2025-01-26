@@ -345,6 +345,11 @@ public:
     #pragma endregion
 };
 
+template <typename T>
+JTX_HOSTDEV Vec3<T> faceForward(Vec3<T> n, Vec3<T> v) {
+    return (n.dot(v) < 0.0f) ? -n : n;
+}
+
 #pragma region Type aliases
 typedef Vec3<int> Vec3i;
 typedef Vec3<float> Vec3f;
