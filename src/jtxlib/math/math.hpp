@@ -183,6 +183,14 @@ namespace jtx {
         return val * val;
     }
 
+    JTX_HOSTDEV JTX_INLINE float log(float val) {
+#if defined(__CUDA_ARCH__)
+        return ::logf(val);
+#else
+        return std::log(val);
+#endif
+    }
+
     JTX_FP_ONLY_T
     JTX_HOSTDEV JTX_INLINE
     T sqrt(T val) {
@@ -194,18 +202,17 @@ namespace jtx {
     }
 
     // pow
-    JTX_HOSTDEV JTX_INLINE float pow(float v, float n) {
+    JTX_HOSTDEV JTX_INLINE float pow(float base, float exp) {
 #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
-        return ::powf(v, n);
+        return ::powf(base, exp);
 #else
-        return std::pow(v, n);
+        return std::pow(base, exp);
 #endif
     }
 
-    JTX_HOST JTX_INLINE double pow(const double v, const double n) {
-        return std::pow(v, n);
+    JTX_HOST JTX_INLINE double pow(const double base, const double exp) {
+        return std::pow(base, exp);
     }
-
 
 // #if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
 //     template <int n>
