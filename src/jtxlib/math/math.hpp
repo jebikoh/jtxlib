@@ -244,7 +244,7 @@ namespace jtx {
     }
 
     JTX_HOSTDEV JTX_INLINE float lerp(float a, float b, float t) {
-        return (1 - t) * a + t * b;
+        return a * (1 - t) + b * t;
     }
 
 
