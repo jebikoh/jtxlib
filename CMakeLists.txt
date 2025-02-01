@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 
 option(USE_ASSIMP "Enable model loading via assimp" OFF)
 option(USE_CUDA "Enable CUDA support" OFF)
-option(NDEBUG "Disables debug assertions" OFF)
+option(NDEBUG "Disables debug assertions" ON)
 option(BUILD_TESTS "Build Catch2 tests" OFF)
 
 if(USE_CUDA)
