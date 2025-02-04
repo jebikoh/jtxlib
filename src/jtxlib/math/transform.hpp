@@ -11,8 +11,7 @@
 
 
 namespace jtx {
-    class Transform {
-    public:
+    struct Transform {
         //region Constructors
         Transform() : m(Mat4(1.0f)), mInv(Mat4(1.0f)) {};
 
@@ -202,7 +201,6 @@ namespace jtx {
         }
         //endregion
 
-    private:
         Mat4 m;
         Mat4 mInv;
     };
