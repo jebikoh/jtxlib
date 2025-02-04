@@ -39,16 +39,6 @@ else()
 endif()
 #endregion
 
-#region Assertion modes
-if (NDEBUG)
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-        add_compile_definitions(DEBUG_ASSERT)
-    elseif (CMAKE_BUILD_TYPE STREQUAL "Test")
-        add_compile_definitions(TEST_ASSERT)
-    endif ()
-endif()
-#endregion
-
 #region Check CXX compilation
 # Taken from PBRTv4 CMake
 include (CheckCXXSourceCompiles)
