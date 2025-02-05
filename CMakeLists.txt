@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
 
-option(USE_ASSIMP "Enable model loading via assimp" OFF)
 option(USE_CUDA "Enable CUDA support" OFF)
 option(NDEBUG "Disables debug assertions" ON)
 option(BUILD_TESTS "Build Catch2 tests" OFF)
@@ -68,15 +67,6 @@ endif ()
 
 #endregion
 
-# ASSIMP
-if (USE_ASSIMP)
-    add_definitions(-USE_ASSIMP)
-    message(STATUS "[JTXLib] Enabling assimp scene loading")
-    set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
-    set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-    add_subdirectory(lib/assimp)
-endif()
-
 #region Library Files
 set(JTXLIB_MATH
         src/jtxlib/math/vec2.hpp
@@ -123,10 +113,6 @@ set(JTXLIB_HEADERS
         src/jtxlib/simd.hpp
         src/jtxlib/util.hpp
         src/jtxlib/containers.hpp
-        src/jtxlib/mesh/gltf.hpp
-        src/jtxlib/mesh/scene.hpp
-        src/jtxlib/mesh/scene.cpp
-        src/jtxlib/math/dist.hpp
 )
 
 add_library(jtxlib STATIC
@@ -144,10 +130,6 @@ set_target_properties(jtxlib PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
 )
-
-if(USE_ASSIMP)
-    target_link_libraries(jtxlib PRIVATE assimp)
-endif()
 
 set(CUDA_ARCH "75" CACHE STRING "CUDA architecture (e.g. 75 for SM 7.5)")
 if(CUDA_ENABLED)
@@ -182,14 +164,3 @@ if (BUILD_TESTS)
     add_subdirectory("tests")
 endif ()
 #endregion
-
-# Copy over assimp
-if (USE_ASSIMP)
-    if(WIN32)
-        add_custom_command(TARGET jtxlib POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                $<TARGET_FILE:assimp>
-                $<TARGET_FILE_DIR:jtxlib>
-        )
-    endif()
-endif()
