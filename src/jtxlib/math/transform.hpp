@@ -154,6 +154,10 @@ namespace jtx {
             return {jtx::scale(sx, sy, sz), jtx::scale(1 / sx, 1 / sy, 1 / sz)};
         }
 
+        static Transform scale(const Vec3f &s) {
+            return scale(s.x, s.y, s.z);
+        }
+
         static Transform rotateX(float theta) {
             auto m = jtx::rotateX(theta);
             return {m, m.transpose()};
