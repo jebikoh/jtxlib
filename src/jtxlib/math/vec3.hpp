@@ -130,12 +130,20 @@ public:
         return {x + scalar, y + scalar, z + scalar};
     }
 
+    JTX_HOSTDEV friend Vec3 operator+(T scalar, const Vec3 &v) {
+        return v + scalar;
+    }
+
     JTX_HOSTDEV JTX_INLINE Vec3 operator-(const Vec3 &other) const {
         return {x - other.x, y - other.y, z - other.z};
     }
 
     JTX_HOSTDEV JTX_INLINE Vec3 operator-(const T scalar) const {
         return {x - scalar, y - scalar, z - scalar};
+    }
+
+    JTX_HOSTDEV friend Vec3 operator-(T scalar, const Vec3 &v) {
+        return {scalar - v.x, scalar - v.y, scalar - v.z};
     }
 
     JTX_HOSTDEV JTX_INLINE Vec3 operator*(const Vec3 &other) const {
