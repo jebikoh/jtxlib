@@ -33,7 +33,7 @@ public:
     }
 
     #pragma region Constructors
-    JTX_HOSTDEV Vec3() : x(JTX_ZERO), y(JTX_ZERO), z(JTX_ZERO) {};
+    JTX_HOSTDEV Vec3() : x(JTX_ZERO), y(JTX_ZERO), z(JTX_ZERO) {}
 
     JTX_HOSTDEV explicit Vec3(T v) : x(v), y(v), z(v) {};
 
@@ -46,6 +46,8 @@ public:
 
     JTX_HOSTDEV Vec3(const Vec2<T> &other, T z) : x(other.x), y(other.y), z(z) {};
     JTX_HOSTDEV explicit Vec3(const Vec4<T> &other) : x(other.x), y(other.y), z(other.z) {};
+
+    JTX_HOSTDEV explicit Vec3(const T *data) : x(data[0]), y(data[1]), z(data[2]) {};
 
     JTX_HOSTDEV
     static Vec3 fromXY(Vec2<T> xy, float Y) {

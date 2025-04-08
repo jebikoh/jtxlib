@@ -37,6 +37,8 @@ namespace jtx {
 
         JTX_HOSTDEV Vec2(const Vec4<T> &other) : x(other.x), y(other.y) { ASSERT(valid()); };
 
+        JTX_HOSTDEV explicit Vec2 (const float *data) : x(data[0]), y(data[1]) { ASSERT(valid()); };
+
         ~Vec2() = default;
         //endregion
 
