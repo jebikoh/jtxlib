@@ -279,7 +279,7 @@ namespace jtx {
         }
 
         JTX_NUM_ONLY_T
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE Point3<T> applyToPoint(const Point3<T> &p) const {
+        [[nodiscard]] JTX_HOSTDEV Point3<T> applyToPoint(const Point3<T> &p) const {
             T xp = data[0][0] * p.x + data[0][1] * p.y + data[0][2] * p.z + data[0][3];
             T yp = data[1][0] * p.x + data[1][1] * p.y + data[1][2] * p.z + data[1][3];
             T zp = data[2][0] * p.x + data[2][1] * p.y + data[2][2] * p.z + data[2][3];
@@ -294,14 +294,14 @@ namespace jtx {
         }
 
         JTX_NUM_ONLY_T
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE Vec3<T> applyToVec(const Vec3<T> &v) const {
+        [[nodiscard]] JTX_HOSTDEV Vec3<T> applyToVec(const Vec3<T> &v) const {
             return {data[0][0] * v.x + data[0][1] * v.y + data[0][2] * v.z,
                     data[1][0] * v.x + data[1][1] * v.y + data[1][2] * v.z,
                     data[2][0] * v.x + data[2][1] * v.y + data[2][2] * v.z};
         }
 
         JTX_NUM_ONLY_T
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE Vec4<T> applyToVec(const Vec4<T> &v) const {
+        [[nodiscard]] JTX_HOSTDEV Vec4<T> applyToVec(const Vec4<T> &v) const {
             return {data[0][0] * v.x + data[0][1] * v.y + data[0][2] * v.z + data[0][3] * v.w,
                     data[1][0] * v.x + data[1][1] * v.y + data[1][2] * v.z + data[1][3] * v.w,
                     data[2][0] * v.x + data[2][1] * v.y + data[2][2] * v.z + data[2][3] * v.w,
@@ -309,19 +309,19 @@ namespace jtx {
         }
 
         JTX_NUM_ONLY_T
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE Normal3<T> applyToNormal(const Normal3<T> &n) const {
+        [[nodiscard]] JTX_HOSTDEV Normal3<T> applyToNormal(const Normal3<T> &n) const {
             return {data[0][0] * n.x + data[1][0] * n.y + data[2][0] * n.z,
                     data[0][1] * n.x + data[1][1] * n.y + data[2][1] * n.z,
                     data[0][2] * n.x + data[1][2] * n.y + data[2][2] * n.z};
         }
 
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE Rayf applyToRay(const Rayf &ray) const {
-            auto o = (*this).applyToPoint(ray.origin);
-            auto d = (*this).applyToVec(ray.dir);
+        [[nodiscard]] JTX_HOSTDEV Rayf applyToRay(const Rayf &ray) const {
+            auto o = this->applyToPoint(ray.origin);
+            auto d = this->applyToVec(ray.dir);
             return {o, d, ray.time};
         }
 
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE RayfDifferential applyToRayDiff(const RayfDifferential &ray) const {
+        [[nodiscard]] JTX_HOSTDEV RayfDifferential applyToRayDiff(const RayfDifferential &ray) const {
             Rayf r = applyToRay(ray);
             RayfDifferential ret(r);
             if (ray.hasDiffs) {
@@ -334,7 +334,7 @@ namespace jtx {
             return ret;
         }
 
-        [[nodiscard]] JTX_HOSTDEV JTX_INLINE BBox3f applyToBBox(const BBox3f &bbox) const {
+        [[nodiscard]] JTX_HOSTDEV BBox3f applyToBBox(const BBox3f &bbox) const {
             BBox3f ret;
             for (int i = 0; i < 8; i++) {
                 ret = ret.merge(applyToPoint(bbox.corner(i)));
@@ -399,8 +399,8 @@ namespace jtx {
     JTX_HOSTDEV JTX_INLINE std::optional<Mat4> inverse(const Mat4 &mat) { return mat.inverse(); }
 
     JTX_HOSTDEV JTX_INLINE std::optional<Mat4> linearLS(const Mat4 &A, const Mat4 &B) {
-        Mat4 AtA = Mat4{};
-        Mat4 AtB = Mat4{};
+        auto AtA = Mat4{};
+        auto AtB = Mat4{};
 
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
@@ -411,9 +411,9 @@ namespace jtx {
             }
         }
 
-        auto AtA_inv = inverse(AtA);
+        const auto AtA_inv = inverse(AtA);
         if (!AtA_inv.has_value()) { return {}; }
-        return jtx::transpose((*AtA_inv).mul(AtB));
+        return jtx::transpose(AtA_inv->mul(AtB));
     }
 
 #endif
