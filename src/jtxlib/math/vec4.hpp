@@ -332,4 +332,19 @@ JTX_HOST JTX_INLINE std::string toString(const Vec4i &vec) {
     return "Vec4i(" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ", " +
            std::to_string(vec.w) + ")";
 }
+
+JTX_HOSTDEV JTX_INLINE uint32_t packUnorm4x8(const Vec4f &v) {
+    // Taking this from GLM
+    union {
+        uint8_t in[4];
+        uint32_t out;
+    } pack;
+
+    pack.in[0] = jtx::round(jtx::clamp(v[0], 0.0f, 1.0f) * 255.0f);
+    pack.in[1] = jtx::round(jtx::clamp(v[1], 0.0f, 1.0f) * 255.0f);
+    pack.in[2] = jtx::round(jtx::clamp(v[2], 0.0f, 1.0f) * 255.0f);
+    pack.in[3] = jtx::round(jtx::clamp(v[3], 0.0f, 1.0f) * 255.0f);
+
+    return pack.out;
+}
 }// namespace jtx
