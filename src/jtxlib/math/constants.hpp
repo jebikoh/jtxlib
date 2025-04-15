@@ -24,7 +24,7 @@ namespace jtx {
         }
     };
 
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
 #include <cuda/std/limits>
     JTX_DEV __constant__ Zero JTX_ZERO;
     JTX_DEV __constant__ double PI = 3.14159265358979323846;

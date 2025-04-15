@@ -28,7 +28,7 @@ template<typename T>
 JTX_HOSTDEV JTX_INLINE
         JTX_ENABLE_FP_BOOL
         isNaN(T v) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::isnan(v);
 #else
     return std::isnan(v);
@@ -46,7 +46,7 @@ template<typename T>
 JTX_HOSTDEV JTX_INLINE
         JTX_ENABLE_FP_T
         ceil(T v) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::ceil(v);
 #else
     return std::ceil(v);
@@ -64,7 +64,7 @@ template<typename T>
 JTX_HOSTDEV JTX_INLINE
         JTX_ENABLE_FP_T
         floor(T v) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::floor(v);
 #else
     return std::floor(v);
@@ -82,7 +82,7 @@ JTX_FP_ONLY_T
 JTX_HOSTDEV JTX_INLINE
         T
         copysign(T mag, T sgn) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::copysign(mag, sgn);
 #else
     return std::copysign(mag, sgn);
@@ -97,7 +97,7 @@ JTX_INLINE bool
 }
 
 JTX_HOSTDEV JTX_INLINE float round(float v) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::roundf(v);
 #else
     return std::round(v);
@@ -105,7 +105,7 @@ JTX_HOSTDEV JTX_INLINE float round(float v) {
 }
 
 JTX_HOSTDEV JTX_INLINE long lround(float v) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::lroundf(v);
 #else
     return std::lround(v);
@@ -131,7 +131,7 @@ clamp(T val, U lo, V hi) {
 }
 
 JTX_HOSTDEV JTX_INLINE float clamp(float val, float lo, float hi) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::fminf(::fmaxf(val, lo), hi);
 #else
     return std::clamp(val, lo, hi);
@@ -139,7 +139,7 @@ JTX_HOSTDEV JTX_INLINE float clamp(float val, float lo, float hi) {
 }
 
 JTX_HOSTDEV JTX_INLINE double clamp(double val, double lo, double hi) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::fmin(::fmax(val, lo), hi);
 #else
     return std::clamp(val, lo, hi);
@@ -148,7 +148,7 @@ JTX_HOSTDEV JTX_INLINE double clamp(double val, double lo, double hi) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T max(T a, T b) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::max(a, b);
 #else
     return std::max<T>(a, b);
@@ -157,7 +157,7 @@ JTX_HOSTDEV JTX_INLINE T max(T a, T b) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T max(T a, T b, T c) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::max(0, ::max(a, b));
 #else
     return std::max<T>({a, b, c});
@@ -166,7 +166,7 @@ JTX_HOSTDEV JTX_INLINE T max(T a, T b, T c) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T min(T a, T b) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::min(a, b);
 #else
     return std::min<T>(a, b);
@@ -175,7 +175,7 @@ JTX_HOSTDEV JTX_INLINE T min(T a, T b) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T min(T a, T b, T c) {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     return ::min(0, ::min(a, b));
 #else
     return std::min<T>({a, b, c});

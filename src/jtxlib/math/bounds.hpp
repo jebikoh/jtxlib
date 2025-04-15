@@ -7,7 +7,7 @@
 #include <jtxlib/math/vecmath.hpp>
 #include <jtxlib/util/assert.hpp>
 
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
 #include <cuda/std/limits>
 #endif
 
@@ -30,7 +30,7 @@ public:
 
     //region Constructors
     JTX_HOSTDEV AABB3() {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
         T minval = cuda::std::numeric_limits<T>::lowest();
         T maxval = cuda::std::numeric_limits<T>::max();
 #else
@@ -213,7 +213,7 @@ public:
 
     //region Constructors
     JTX_DEV AABB2() {
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
         T minval = cuda::std::numeric_limits<T>::lowest();
         T maxval = cuda::std::numeric_limits<T>::max();
 #else

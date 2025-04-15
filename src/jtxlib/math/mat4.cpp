@@ -33,7 +33,7 @@ namespace jtx {
     }
 
     // Avoid using this if possible
-#if defined(CUDA_ENABLED) && defined(__CUDA_ARCH__)
+#if defined(JTXLIB_CUDA_ENABLED)
     JTX_HOSTDEV cuda::std::optional<Mat4> inverse() const {
         float s0 = jtx::dop(data[0][0], data[1][1], data[1][0], data[0][1]);
         float s1 = jtx::dop(data[0][0], data[1][2], data[1][0], data[0][2]);

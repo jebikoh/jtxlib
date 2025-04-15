@@ -2,9 +2,9 @@
 
 #include <new>
 
-#if defined(JTX__ALIGNED_MALLOC)
+#if defined(JTXLIB__ALIGNED_MALLOC)
 #include <malloc.h>// NOLINT(*-deprecated-headers)
-#elif defined(JTX_POSIX_MEMALIGN)
+#elif defined(JTXLIB_POSIX_MEMALIGN)
 #include <stdlib.h>// NOLINT(*-deprecated-headers)
 #endif
 
@@ -13,9 +13,9 @@ namespace jtx::pmr {
 class newdel_res_t final : public memory_resource {
     void *do_allocate(size_t bytes, size_t alignment) override {
         if (bytes == 0) return nullptr;
-#if defined(JTX__ALIGNED_MALLOC)
+#if defined(JTXLIB__ALIGNED_MALLOC)
         return _aligned_malloc(bytes, alignment);
-#elif defined(JTX_POSIX_MEMALIGN)
+#elif defined(JTXLIB_POSIX_MEMALIGN)
         void *ptr;
         if (alignment < sizeof(void *)) return malloc(bytes);
         if (posix_memalign(&ptr, alignment, bytes) != 0) ptr = nullptr;
@@ -27,7 +27,7 @@ class newdel_res_t final : public memory_resource {
 
     void do_deallocate(void *p, size_t bytes, size_t alignment) override {
         if (!p) return;
-#if defined(JTX__ALIGNED_MALLOC)
+#if defined(JTXLIB__ALIGNED_MALLOC)
         _aligned_free(p);
 #else
         free(p);

@@ -10,3 +10,4 @@
 #include "math/transform.hpp"
 #include "math/vector.hpp"
 #include "math/dist.hpp"
+#include "math/quaternion.hpp"

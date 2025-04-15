@@ -18,7 +18,7 @@ if(USE_CUDA)
     check_language(CUDA)
     if(CMAKE_CUDA_COMPILER)
         enable_language(CUDA)
-        set(CUDA_ENABLED TRUE)
+        set(JTXLIB_CUDA_ENABLED TRUE)
 
         message(STATUS "[JTXLib] CUDA compiler: ${CMAKE_CUDA_COMPILER}")
         message(STATUS "[JTXLib] CUDA compiler version: ${CMAKE_CUDA_COMPILER_VERSION}")
@@ -27,7 +27,7 @@ if(USE_CUDA)
         message(FATAL_ERROR "[JTXLib] CUDA compiler not found, but CUDA support was requested")
     endif()
 else()
-    set(CUDA_ENABLED FALSE)
+    set(JTXLIB_CUDA_ENABLED FALSE)
     message(STATUS "[JTXLib] CUDA support is disabled")
     message(STATUS "[JTXLib] Enabling CPU optimizations")
 #    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -56,10 +56,10 @@ int main() {
 set(CMAKE_REQUIRED_QUIET OFF)
 
 if (HAVE__ALIGNED_MALLOC)
-    add_compile_definitions(JTX__ALIGNED_MALLOC)
+    add_compile_definitions(JTXLIB__ALIGNED_MALLOC)
     message(STATUS "[JTXLib] Using _aligned_malloc() for memory alignment.")
 elseif (HAVE_POSIX_MEMALIGN)
-    add_compile_definitions(JTX_POSIX_MEMALIGN)
+    add_compile_definitions(JTXLIB_POSIX_MEMALIGN)
     message(STATUS "[JTXLib] Using posix_memalign() for memory alignment.")
 else ()
     message (SEND_ERROR "[JTXLib] No memory alignment function found. Defaulting to memalign().")
@@ -132,14 +132,14 @@ set_target_properties(jtxlib PROPERTIES
 )
 
 set(CUDA_ARCH "75" CACHE STRING "CUDA architecture (e.g. 75 for SM 7.5)")
-if(CUDA_ENABLED)
+if(JTXLIB_CUDA_ENABLED)
     message(STATUS "[JTXLib] Building for CUDA architecture ${CUDA_ARCH}")
     set_target_properties(jtxlib PROPERTIES
             CUDA_SEPARABLE_COMPILATION ON
             CUDA_ARCHITECTURES ${CUDA_ARCH}
     )
     target_compile_options(jtxlib PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>)
-    target_compile_definitions(jtxlib PUBLIC CUDA_ENABLED)
+    target_compile_definitions(jtxlib PUBLIC JTXLIB_CUDA_ENABLED)
 endif()
 #endregion
 
@@ -148,7 +148,7 @@ target_include_directories(jtxlib
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
-if(CUDA_ENABLED)
+if(JTXLIB_CUDA_ENABLED)
     target_include_directories(jtxlib PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
 endif()
 #endregion
