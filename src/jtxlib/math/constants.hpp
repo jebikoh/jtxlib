@@ -7,19 +7,20 @@ namespace jtx {
     // TODO: expand as needed
     // Structure from https://github.com/behindthepixels/EDXUtil/
     struct Zero {
-        JTX_HOSTDEV inline explicit operator int() const { return 0; }
-
-        JTX_HOSTDEV inline explicit operator float() const { return 0.0f; }
-
-        JTX_HOSTDEV inline explicit operator double() const { return 0.0; }
+        JTX_HOSTDEV explicit operator uint32_t() const { return 0; }
+        JTX_HOSTDEV explicit operator uint64_t() const { return 0; }
+        JTX_HOSTDEV explicit operator int32_t() const { return 0; }
+        JTX_HOSTDEV explicit operator int64_t() const { return 0; }
+        JTX_HOSTDEV explicit operator float() const { return 0.0f; }
+        JTX_HOSTDEV explicit operator double() const { return 0.0; }
 
         template<typename T>
-        JTX_HOSTDEV inline bool operator==(const T &other) const {
+        JTX_HOSTDEV bool operator==(const T &other) const {
             return static_cast<T>(*this) == other;
         }
 
         template<typename T>
-        JTX_HOSTDEV inline bool operator!=(const T &other) const {
+        JTX_HOSTDEV bool operator!=(const T &other) const {
             return static_cast<T>(*this) != other;
         }
     };
@@ -48,4 +49,3 @@ namespace jtx {
     constexpr float ONE_MINUS_EPSILON = 0x1.fffffep-1;
 #endif
 }
-
