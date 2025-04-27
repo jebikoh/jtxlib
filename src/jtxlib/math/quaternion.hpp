@@ -8,19 +8,16 @@ public:
     float w;
     Vec3f v;
 
-    //region Constructors
     /**
-         * Returns an identity quaternion
-         */
+     * Returns an identity quaternion
+     */
     JTX_HOSTDEV Quaternion() : w(1), v(0, 0, 0) {}
     JTX_HOSTDEV Quaternion(float w, const Vec3f &v) : w(w), v(v) {}
     JTX_HOSTDEV Quaternion(float w, float x, float y, float z) : w(w), v(x, y, z) {}
 
     JTX_HOSTDEV static Quaternion pure(const Vec3f &v) { return {0, v}; }
     JTX_HOSTDEV static Quaternion real(float w) { return {w, 0, 0, 0}; }
-    //endregion
 
-    //region Operators
     JTX_HOSTDEV Quaternion operator+(const Quaternion &q) const { return {w + q.w, v + q.v}; }
     JTX_HOSTDEV Quaternion operator-(const Quaternion &q) const { return {w - q.w, v - q.v}; }
     JTX_HOSTDEV Quaternion operator-() const { return {-w, -v}; }
@@ -61,9 +58,7 @@ public:
     JTX_HOSTDEV friend Quaternion operator*(const float s, const Quaternion &q) { return q * s; }
 
     JTX_HOSTDEV bool operator==(const Quaternion &q) const { return w == q.w && v == q.v; }
-    //endregion
 
-    //region Member functions
     [[nodiscard]] JTX_HOSTDEV float dot(const Quaternion &q) const { return w * q.w + v.dot(q.v); }
     [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::sqrt(this->dot(*this)); }
     [[nodiscard]] JTX_HOSTDEV Quaternion normalize() {
@@ -91,10 +86,8 @@ public:
     [[nodiscard]] JTX_HOSTDEV bool equals(const Quaternion &q, float epsilon = EPSILON) const {
         return jtx::equals(w, q.w, epsilon) && v.equals(q.v, epsilon);
     }
-    //endregion
 };
 
-//region In-line Functions
 JTX_HOSTDEV JTX_INLINE float dot(const Quaternion &q1, const Quaternion &q2) { return q1.dot(q2); }
 JTX_HOSTDEV JTX_INLINE Quaternion normalize(const Quaternion &q) { return q / q.len(); }
 JTX_HOSTDEV JTX_INLINE float angle(const Quaternion &q1, const Quaternion &q2) { return q1.angle(q2); }
@@ -103,11 +96,10 @@ JTX_HOSTDEV JTX_INLINE Quaternion slerp(const Quaternion &q1, const Quaternion &
     // One again: http://www.plunk.org/~hatch/rightway.html
     const float theta = q1.angle(q2);
     const float sxoxTheta = sinXOverX(theta);
-    return (sinXOverX(1 - t * theta) / sxoxTheta) * (1 - t) * q1 + (sinXOverX(t * theta) / sxoxTheta) * t * q2;
+    return sinXOverX(1 - t * theta) / sxoxTheta * (1 - t) * q1 + (sinXOverX(t * theta) / sxoxTheta) * t * q2;
 }
 
 JTX_HOSTDEV JTX_INLINE bool equals(const Quaternion &a, const Quaternion &b, float epsilon = EPSILON) {
     return a.equals(b, epsilon);
 }
-//endregion
 }// namespace jtx
