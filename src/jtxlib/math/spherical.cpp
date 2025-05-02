@@ -11,7 +11,7 @@ namespace jtx{
         float signedDist = 1 - (u_p + v_p);
         float r = 1 - std::abs(signedDist);
 
-        float phi = (r == 0 ? 1 : (v_p - u_p) / r + 1) * PI_F / 4;
+        float phi = (r == 0 ? 1 : (v_p - u_p) / r + 1) * JTX_PI_F / 4;
         return {jtx::copysign(std::cos(phi), u) * r * jtx::safeSqrt(2 - r * r),
                 jtx::copysign(std::sin(phi), v) * r * jtx::safeSqrt(2 - r * r),
                 jtx::copysign(1 - r * r, signedDist)};

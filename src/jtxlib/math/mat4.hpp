@@ -213,7 +213,7 @@ public:
     //endregion
 
     //region In-line Methods
-    JTX_HOSTDEV bool equals(const Mat4 &other, const float epsilon = EPSILON) const {
+    JTX_HOSTDEV bool equals(const Mat4 &other, const float epsilon = JTX_EPSILON) const {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
                 if (jtx::abs(data[i][j] - other[i][j]) > epsilon) {
@@ -528,7 +528,7 @@ JTX_HOSTDEV JTX_INLINE Mat4 orthographic(float left, float right, float top, flo
 
 JTX_HOST std::string toString(const Mat4 &mat);
 
-JTX_HOSTDEV JTX_INLINE bool equals(const Mat4 &a, const Mat4 &b, float epsilon = EPSILON) {
+JTX_HOSTDEV JTX_INLINE bool equals(const Mat4 &a, const Mat4 &b, float epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 

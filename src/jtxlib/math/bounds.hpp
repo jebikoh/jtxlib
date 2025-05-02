@@ -410,7 +410,7 @@ JTX_DEV AABB3<T> shrink(const AABB3<T> &a, T delta) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const AABB3<T> &a, const AABB3<T> &b, T epsilon = EPSILON) {
+JTX_HOSTDEV bool equals(const AABB3<T> &a, const AABB3<T> &b, T epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 //endregion
@@ -488,7 +488,7 @@ JTX_DEV AABB2<T> shrink(const AABB2<T> &a, T delta) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const AABB2<T> &a, const AABB2<T> &b, T epsilon = EPSILON) {
+JTX_HOSTDEV bool equals(const AABB2<T> &a, const AABB2<T> &b, T epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 //endregion

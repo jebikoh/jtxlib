@@ -38,14 +38,14 @@ namespace jtx {
     JTX_DEV __constant__ float EPSILON = 0.00001f;
 #else
     constexpr Zero JTX_ZERO;
-    constexpr double PI = 3.14159265358979323846;
-    constexpr float PI_F = 3.14159265358979323846f;
-    constexpr float BITS_16 = 65535.0f;
-    constexpr float INFINITY_F = std::numeric_limits<float>::infinity();
-    constexpr double INFINITY_D = std::numeric_limits<double>::infinity();
-    constexpr float NEG_INFINITY_F = -std::numeric_limits<float>::infinity();
-    constexpr double NEG_INFINITY_D = -std::numeric_limits<double>::infinity();
-    constexpr float EPSILON = 0.00001f;
-    constexpr float ONE_MINUS_EPSILON = 0x1.fffffep-1;
+    constexpr double JTX_PI = 3.14159265358979323846;
+    constexpr float JTX_PI_F = 3.14159265358979323846f;
+    constexpr float JTX_BITS_16 = 65535.0f;
+    constexpr float JTX_INFINITY_F = std::numeric_limits<float>::infinity();
+    constexpr double JTX_INFINITY_D = std::numeric_limits<double>::infinity();
+    constexpr float JTX_NEG_INFINITY_F = -std::numeric_limits<float>::infinity();
+    constexpr double JTX_NEG_INFINITY_D = -std::numeric_limits<double>::infinity();
+    constexpr float JTX_EPSILON = 0.00001f;
+    constexpr float JTX_ONE_MINUS_EPSILON = 0x1.fffffep-1;
 #endif
 }

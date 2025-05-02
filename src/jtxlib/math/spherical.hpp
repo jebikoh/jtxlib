@@ -28,7 +28,7 @@ JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
     da.normalize();
 
     return jtx::abs(
-            jtx::angle(da, -ab) + jtx::angle(ab, -bc) + jtx::angle(bc, -cd) + jtx::angle(cd, -da) - 2 * PI_F);
+            jtx::angle(da, -ab) + jtx::angle(ab, -bc) + jtx::angle(bc, -cd) + jtx::angle(cd, -da) - 2 * JTX_PI_F);
 }
 
 /**
@@ -49,7 +49,7 @@ JTX_INLINE float sphericalTheta(const Vec3f &v) {
 
 JTX_INLINE float sphericalPhi(const Vec3f &v) {
     float p = jtx::atan2(v.y, v.x);
-    return (p < 0) ? p + 2 * PI_F : p;
+    return (p < 0) ? p + 2 * JTX_PI_F : p;
 }
 
 JTX_INLINE float cosTheta(const Vec3f &w) { return w.z; }
@@ -103,8 +103,8 @@ public:
 
     explicit operator Vec3f() const {
         Vec3f v;
-        v.x = -1 + 2 * (static_cast<float>(x) / BITS_16);
-        v.y = -1 + 2 * (static_cast<float>(y) / BITS_16);
+        v.x = -1 + 2 * (static_cast<float>(x) / JTX_BITS_16);
+        v.y = -1 + 2 * (static_cast<float>(y) / JTX_BITS_16);
         v.z = 1 - jtx::abs(v.x) - jtx::abs(v.y);
         if (v.z < 0) {
             auto xo = v.x;
@@ -118,7 +118,7 @@ private:
     static JTX_INLINE float sign(float f) { return jtx::copysign(1.0f, f); }
 
     static JTX_INLINE uint16_t encode(float f) {
-        return static_cast<uint16_t>(jtx::round(jtx::clamp((f + 1) / 2, 0, 1) * BITS_16));
+        return static_cast<uint16_t>(jtx::round(jtx::clamp((f + 1) / 2, 0, 1) * JTX_BITS_16));
     }
 
     uint16_t x, y;
@@ -153,9 +153,9 @@ JTX_INLINE Point2f wrapEqualAreaSquare(Point2f p) {
 class DirectionCone {
 public:
     jtx::Vec3f dir;
-    float cosTheta = jtx::INFINITY_F;
+    float cosTheta = jtx::JTX_INFINITY_F;
 
-    [[nodiscard]] JTX_INLINE bool isEmpty() const { return cosTheta == jtx::INFINITY_F; }
+    [[nodiscard]] JTX_INLINE bool isEmpty() const { return cosTheta == jtx::JTX_INFINITY_F; }
 
     //region Constructors
     DirectionCone() = default;
@@ -199,12 +199,12 @@ JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
     float theta_b = jtx::clampAcos(b.cosTheta);
     float theta_d = jtx::angle(a.dir, b.dir);
 
-    if (jtx::min(theta_d + theta_b, PI_F) <= theta_a) return a;
-    if (jtx::min(theta_d + theta_a, PI_F) <= theta_b) return b;
+    if (jtx::min(theta_d + theta_b, JTX_PI_F) <= theta_a) return a;
+    if (jtx::min(theta_d + theta_a, JTX_PI_F) <= theta_b) return b;
 
     // Case 2: New cone
     float theta_o = (theta_a + theta_b + theta_d) / 2;
-    if (theta_o >= PI_F) return DirectionCone::entireSphere();
+    if (theta_o >= JTX_PI_F) return DirectionCone::entireSphere();
 
     float theta_r = theta_o - theta_a;
     Vec3f wr = jtx::cross(a.dir, b.dir);
@@ -213,7 +213,7 @@ JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
     return {w, jtx::cos(theta_o)};
 }
 
-JTX_HOSTDEV JTX_INLINE bool equals(const DirectionCone &a, const DirectionCone &b, float epsilon = EPSILON) {
+JTX_HOSTDEV JTX_INLINE bool equals(const DirectionCone &a, const DirectionCone &b, float epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 //endregion

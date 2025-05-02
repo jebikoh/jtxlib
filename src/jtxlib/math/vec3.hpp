@@ -255,7 +255,7 @@ public:
 #pragma endregion
 
 #pragma region Member functions
-    JTX_HOSTDEV bool equals(const Vec3 &other, float epsilon = EPSILON) const {
+    JTX_HOSTDEV bool equals(const Vec3 &other, float epsilon = JTX_EPSILON) const {
         return jtx::equals(x, other.x, epsilon) && jtx::equals(y, other.y, epsilon) &&
                jtx::equals(z, other.z, epsilon);
     }
@@ -389,7 +389,7 @@ JTX_HOST std::string toString(const Vec3<T> &vec) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const Vec3<T> &a, const Vec3<T> &b, float epsilon = EPSILON) {
+JTX_HOSTDEV bool equals(const Vec3<T> &a, const Vec3<T> &b, float epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 

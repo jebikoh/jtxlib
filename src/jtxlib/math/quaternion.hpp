@@ -79,11 +79,11 @@ public:
         // This is what PBRT does
         // http://www.plunk.org/~hatch/rightway.html
         float theta = 2.0f * jtx::clampAsin((q - (*this)).len() / 2);
-        if (dot(q) < 0) return jtx::PI_F - theta;
+        if (dot(q) < 0) return jtx::JTX_PI_F - theta;
         return theta;
     }
 
-    [[nodiscard]] JTX_HOSTDEV bool equals(const Quaternion &q, float epsilon = EPSILON) const {
+    [[nodiscard]] JTX_HOSTDEV bool equals(const Quaternion &q, float epsilon = JTX_EPSILON) const {
         return jtx::equals(w, q.w, epsilon) && v.equals(q.v, epsilon);
     }
 };
@@ -99,7 +99,7 @@ JTX_HOSTDEV JTX_INLINE Quaternion slerp(const Quaternion &q1, const Quaternion &
     return sinXOverX(1 - t * theta) / sxoxTheta * (1 - t) * q1 + (sinXOverX(t * theta) / sxoxTheta) * t * q2;
 }
 
-JTX_HOSTDEV JTX_INLINE bool equals(const Quaternion &a, const Quaternion &b, float epsilon = EPSILON) {
+JTX_HOSTDEV JTX_INLINE bool equals(const Quaternion &a, const Quaternion &b, float epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 }// namespace jtx

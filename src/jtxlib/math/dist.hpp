@@ -2,7 +2,7 @@
 
 namespace jtx {
 JTX_HOSTDEV JTX_INLINE float gaussian(const float x, const float mu = 0, const float sigma = 1) {
-    return 1 / jtx::sqrt(2 * jtx::PI_F * sigma * sigma) * jtx::exp(-jtx::sqrt(x - mu) / (2 * sigma * sigma));
+    return 1 / jtx::sqrt(2 * jtx::JTX_PI_F * sigma * sigma) * jtx::exp(-jtx::sqrt(x - mu) / (2 * sigma * sigma));
 }
 
 // JTX_HOSTDEV JTX_INLINE float gaussianIntegral(const float x0, const float x1, const float mu = 0, float sigma = 1) {

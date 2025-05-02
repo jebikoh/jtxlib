@@ -150,11 +150,11 @@ JTX_HOSTDEV T abs(T v) {
     }
 
     JTX_HOSTDEV JTX_INLINE float radians(float deg) {
-        return deg * PI_F / 180.0f;
+        return deg * JTX_PI_F / 180.0f;
     }
 
     JTX_HOSTDEV JTX_INLINE float degrees(float rad) {
-        return rad * 180.0f / PI_F;
+        return rad * 180.0f / JTX_PI_F;
     }
 // clang-format on
 //endregion
@@ -283,7 +283,7 @@ JTX_HOST JTX_INLINE float fastExp(float x) {
 
     int exponent = i;
     if (exponent < -126) return 0;
-    if (exponent > 127) return INFINITY_F;
+    if (exponent > 127) return JTX_INFINITY_F;
     uint32_t bits = floatToBits(twoToF);
     bits &= 0b10000000011111111111111111111111u;
     bits |= (exponent + 127) << 23;

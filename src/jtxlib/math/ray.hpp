@@ -128,12 +128,12 @@ JTX_HOST std::string toString(const Ray<T> &ray) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const Ray<T> &a, const Ray<T> &b, T epsilon = EPSILON) {
+JTX_HOSTDEV bool equals(const Ray<T> &a, const Ray<T> &b, T epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const RayDifferential<T> &a, const RayDifferential<T> &b, T epsilon = EPSILON) {
+JTX_HOSTDEV bool equals(const RayDifferential<T> &a, const RayDifferential<T> &b, T epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 

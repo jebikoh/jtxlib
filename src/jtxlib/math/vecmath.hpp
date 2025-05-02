@@ -211,7 +211,7 @@ JTX_HOSTDEV JTX_INLINE Vec4<T> fma(const Vec4<T> &a, const Vec4<T> &b, const Vec
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float angle(const Vec2<T> &a, const Vec2<T> &b) {
     if (a.dot(b) < 0) {
-        return PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
+        return JTX_PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
     }
     return 2 * jtx::clampAsin((a - b).len() / 2);
 }
@@ -219,7 +219,7 @@ JTX_HOSTDEV JTX_INLINE float angle(const Vec2<T> &a, const Vec2<T> &b) {
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float angle(const Vec3<T> &a, const Vec3<T> &b) {
     if (a.dot(b) < 0) {
-        return PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
+        return JTX_PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
     }
     return 2 * jtx::clampAsin((a - b).len() / 2);
 }
