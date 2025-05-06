@@ -176,6 +176,22 @@ public:
         ASSERT(JTX_ZERO != scalar);
         return {scalar / v.x, scalar / v.y, scalar / v.z};
     }
+
+    JTX_HOSTDEV Vec3 operator<<(uint32_t shift) {
+        return {x << shift, y << shift, z << shift};
+    }
+
+    JTX_HOSTDEV Vec3 operator>>(uint32_t shift) const {
+        return {x >> shift, y >> shift, z >> shift};
+    }
+
+    JTX_HOSTDEV Vec3 operator^(uint32_t scalar) const {
+        return {x ^ scalar, y ^ scalar, z ^ scalar};
+    }
+
+    JTX_HOSTDEV Vec3 operator^(const Vec3 &p) const {
+        return {x ^ p.x, y ^ p.y, z ^ p.z};
+    }
 #pragma endregion
 
 #pragma region In-place Assignment Operators
@@ -240,6 +256,34 @@ public:
         y /= scalar;
         z /= scalar;
         ASSERT(valid());
+        return *this;
+    }
+
+    JTX_HOSTDEV Vec3 &operator^=(const Vec3 &other) {
+        x ^= other.x;
+        y ^= other.y;
+        z ^= other.z;
+        return *this;
+    }
+
+    JTX_HOSTDEV Vec3 &operator^=(const uint32_t scalar) {
+        x ^= scalar;
+        y ^= scalar;
+        z ^= scalar;
+        return *this;
+    }
+
+    JTX_HOSTDEV Vec3 &operator>>=(uint32_t shift) {
+        x >>= shift;
+        y >>= shift;
+        z >>= shift;
+        return *this;
+    }
+
+    JTX_HOSTDEV Vec3 &operator<<=(uint32_t shift) {
+        x <<= shift;
+        y <<= shift;
+        z <<= shift;
         return *this;
     }
 
