@@ -15,21 +15,25 @@ public:
     Point3<T> origin;
     Vec3<T> dir;
     T time;
-    // Add medium later
+
+    Vec3<T> invDir;
+    int sign[3];
 
     [[nodiscard]] bool valid() const {
         return origin.valid() && dir.valid() && !jtx::isNaN(time);
     }
 
     //region Constructors
-    JTX_DEV Ray() : origin(), dir(), time(JTX_ZERO) {}
+    JTX_DEV Ray() : origin(), dir(), invDir(), sign(), time(JTX_ZERO) {}
 
     JTX_DEV Ray(const Point3<T> &origin, const Vec3<T> &direction, T time = T(0))
         : origin(origin), dir(direction), time(time) {
         ASSERT(valid());
+        invDir = 1 / dir;
+        sign = {invDir[0] < 0, invDir[1] < 0, invDir[2] < 0};
     }
 
-    JTX_DEV Ray(const Ray &other) : origin(other.origin), dir(other.dir), time(other.time) {
+    JTX_DEV Ray(const Ray &other) : origin(other.origin), dir(other.dir), invDir(other.invDir), sign(other.sign), time(other.time) {
         ASSERT(valid());
     }
 
