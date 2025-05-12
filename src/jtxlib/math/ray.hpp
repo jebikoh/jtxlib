@@ -16,26 +16,19 @@ public:
     Vec3<T> dir;
     T time;
 
-    Vec3<T> invDir;
-    int sign[3] = {};
-
     [[nodiscard]] bool valid() const {
         return origin.valid() && dir.valid() && !jtx::isNaN(time);
     }
 
     //region Constructors
-    JTX_DEV Ray() : origin(), dir(), time(JTX_ZERO), invDir() {}
+    JTX_DEV Ray() : origin(), dir(), time(JTX_ZERO) {}
 
     JTX_DEV Ray(const Point3<T> &origin, const Vec3<T> &direction, T time = T(0))
         : origin(origin), dir(direction), time(time) {
         ASSERT(valid());
-        invDir = 1 / dir;
-        sign[0] = invDir[0] < 0;
-        sign[1] = invDir[1] < 0;
-        sign[2] = invDir[2] < 0;
     }
 
-    JTX_DEV Ray(const Ray &other) : origin(other.origin), dir(other.dir), time(other.time), invDir(other.invDir) {
+    JTX_DEV Ray(const Ray &other) : origin(other.origin), dir(other.dir), time(other.time) {
         ASSERT(valid());
     }
 
