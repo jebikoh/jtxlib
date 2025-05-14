@@ -1,7 +1,8 @@
 #pragma once
 
-#include <limits>
+#include <cstdint>
 #include <jtxlib.hpp>
+#include <limits>
 
 namespace jtx {
     // TODO: expand as needed
