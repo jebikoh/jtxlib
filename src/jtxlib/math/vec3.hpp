@@ -313,9 +313,15 @@ public:
     }
 
     [[nodiscard]] JTX_HOSTDEV Vec3 cross(const Vec3 &other) const {
+#ifdef JTXLIB_MINIMIZE_FP_ERROR
         return {jtx::dop(y, other.z, z, other.y),
                 jtx::dop(z, other.x, x, other.z),
                 jtx::dop(x, other.y, y, other.x)};
+#else
+         return {y * other.z - z * other.y,
+                 z * other.x - x * other.z,
+                 x * other.y - y * other.x};
+#endif
     }
 
 

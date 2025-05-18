@@ -272,9 +272,15 @@ JTX_HOSTDEV JTX_INLINE float distance(const Vec4<T> &a, const Vec4<T> &b) {
 #pragma region Vec3 Specific
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec3<T> cross(const Vec3<T> &a, const Vec3<T> &b) {
+#ifdef JTXLIB_MINIMIZE_FP_ERROR
     return {jtx::dop(a.y, b.z, a.z, b.y),
             jtx::dop(a.z, b.x, a.x, b.z),
             jtx::dop(a.x, b.y, a.y, b.x)};
+#else
+    return {a.y * b.z - a.z * b.y,
+            a.z * b.x - a.x * b.z,
+            a.x * b.y - a.y * b.x};
+#endif
 }
 
 JTX_NUM_ONLY_T

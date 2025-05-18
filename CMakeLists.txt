@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.27)
 option(USE_CUDA "Enable CUDA support" OFF)
 option(NDEBUG "Disables debug assertions" ON)
 option(BUILD_TESTS "Build Catch2 tests" OFF)
+option(JTXLIB_MINIMIZE_FP_ERROR "Minimize floating point error" OFF)
 
 if(USE_CUDA)
     project(jtxlib VERSION 1.0.0 LANGUAGES CXX CUDA)
@@ -37,6 +38,10 @@ else()
 #    endif()
 endif()
 #endregion
+
+if(JTXLIB_MINIMIZE_FP_ERROR)
+    add_compile_definitions(-DJTXLIB_MINIMIZE_FP_ERROR)
+endif()
 
 #region Check CXX compilation
 # Taken from PBRTv4 CMake
