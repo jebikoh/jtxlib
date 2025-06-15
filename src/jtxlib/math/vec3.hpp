@@ -372,7 +372,7 @@ public:
         return jtx::min(z, jtx::min(x, y));
     }
 
-    [[nodiscard]] JTX_HOSTDEV auto max() const {
+    [[nodiscard]] JTX_HOSTDEV auto MaxComponent() const {
         return jtx::max(z, jtx::max(x, y));
     }
 
