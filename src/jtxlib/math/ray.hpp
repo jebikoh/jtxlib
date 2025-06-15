@@ -48,7 +48,7 @@ public:
                jtx::equals(time, other.time, epsilon);
     }
 
-    [[nodiscard]] JTX_DEV Point3<T> at(T t) const {
+    [[nodiscard]] JTX_DEV Point3<T> At(T t) const {
         return origin + t * dir;
     }
 };

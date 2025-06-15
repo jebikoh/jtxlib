@@ -44,18 +44,18 @@ JTX_HOSTDEV JTX_INLINE Vec4<T> abs(const Vec4<T> &v) {
 
 #pragma region ABS Dot Product
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T absdot(const Vec2<T> &a, const Vec2<T> &b) {
-    return jtx::abs(a.dot(b));
+JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec2<T> &a, const Vec2<T> &b) {
+    return jtx::abs(a.Dot(b));
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T absdot(const Vec3<T> &a, const Vec3<T> &b) {
-    return jtx::abs(a.dot(b));
+JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec3<T> &a, const Vec3<T> &b) {
+    return jtx::abs(a.Dot(b));
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T absdot(const Vec4<T> &a, const Vec4<T> &b) {
-    return jtx::abs(a.dot(b));
+JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec4<T> &a, const Vec4<T> &b) {
+    return jtx::abs(a.Dot(b));
 }
 #pragma endregion
 
@@ -210,7 +210,7 @@ JTX_HOSTDEV JTX_INLINE Vec4<T> fma(const Vec4<T> &a, const Vec4<T> &b, const Vec
 #pragma region Angle between
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float angle(const Vec2<T> &a, const Vec2<T> &b) {
-    if (a.dot(b) < 0) {
+    if (a.Dot(b) < 0) {
         return JTX_PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
     }
     return 2 * jtx::clampAsin((a - b).len() / 2);
@@ -218,7 +218,7 @@ JTX_HOSTDEV JTX_INLINE float angle(const Vec2<T> &a, const Vec2<T> &b) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float angle(const Vec3<T> &a, const Vec3<T> &b) {
-    if (a.dot(b) < 0) {
+    if (a.Dot(b) < 0) {
         return JTX_PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
     }
     return 2 * jtx::clampAsin((a - b).len() / 2);
@@ -228,12 +228,12 @@ JTX_HOSTDEV JTX_INLINE float angle(const Vec3<T> &a, const Vec3<T> &b) {
 #pragma region Gram-Schmidt
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec2<T> gramSchmidt(const Vec2<T> &a, const Vec2<T> &b) {
-    return a - (b * a.dot(b));
+    return a - (b * a.Dot(b));
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec3<T> gramSchmidt(const Vec3<T> &a, const Vec3<T> &b) {
-    return a - (b * a.dot(b));
+    return a - (b * a.Dot(b));
 }
 #pragma endregion
 
@@ -271,7 +271,7 @@ JTX_HOSTDEV JTX_INLINE float distance(const Vec4<T> &a, const Vec4<T> &b) {
 
 #pragma region Vec3 Specific
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec3<T> cross(const Vec3<T> &a, const Vec3<T> &b) {
+JTX_HOSTDEV JTX_INLINE Vec3<T> Cross(const Vec3<T> &a, const Vec3<T> &b) {
 #ifdef JTXLIB_MINIMIZE_FP_ERROR
     return {jtx::dop(a.y, b.z, a.z, b.y),
             jtx::dop(a.z, b.x, a.x, b.z),
@@ -285,7 +285,7 @@ JTX_HOSTDEV JTX_INLINE Vec3<T> cross(const Vec3<T> &a, const Vec3<T> &b) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec3<T> align(const Vec3<T> &a, const Vec3<T> &b) {
-    return (a.dot(b) < 0.0f) ? -a : a;
+    return (a.Dot(b) < 0.0f) ? -a : a;
 }
 
 JTX_NUM_ONLY_T

@@ -304,11 +304,11 @@ public:
                jtx::equals(z, other.z, epsilon);
     }
 
-    [[nodiscard]] JTX_HOSTDEV T dot(const Vec3 &other) const {
+    [[nodiscard]] JTX_HOSTDEV T Dot(const Vec3 &other) const {
         return x * other.x + y * other.y + z * other.z;
     }
 
-    [[nodiscard]] JTX_HOSTDEV T dot(const T _x, const T _y, const T _z) const {
+    [[nodiscard]] JTX_HOSTDEV T Dot(const T _x, const T _y, const T _z) const {
         return this->x * _x + this->y * _y + this->z * _z;
     }
 
@@ -333,7 +333,7 @@ public:
     }
 
     JTX_HOSTDEV T absdot(const Vec3 &other) {
-        return jtx::abs(dot(other));
+        return jtx::abs(Dot(other));
     }
 
     [[nodiscard]] JTX_HOSTDEV float lenSqr() const {
@@ -381,7 +381,7 @@ public:
     }
 
     JTX_HOSTDEV Vec3 &align(const Vec3 &other) {
-        if ((*this).dot(other) < 0.0f) {
+        if ((*this).Dot(other) < 0.0f) {
             (*this) = -(*this);
         }
         return *this;
@@ -409,7 +409,7 @@ public:
 
 template<typename T>
 JTX_HOSTDEV Vec3<T> faceForward(Vec3<T> n, Vec3<T> v) {
-    return (n.dot(v) < 0.0f) ? -n : n;
+    return (n.Dot(v) < 0.0f) ? -n : n;
 }
 
 #pragma region Type aliases
@@ -481,7 +481,7 @@ public:
 
     // WARNING: THESE FUNCTIONS SET THE 2 CALCULATED VECTORS ARBITRARILY
 
-    JTX_HOSTDEV static Frame fromZ(const Vec3f &z) {
+    JTX_HOSTDEV static Frame FromZ(const Vec3f &z) {
         Vec3f x, y;
         coordinateSystem(z, &x, &y);
         return {x, y, z};
@@ -499,11 +499,11 @@ public:
         return {x, y, z};
     }
 
-    [[nodiscard]] JTX_HOSTDEV Vec3f toLocal(const Vec3f &v) const {
-        return {v.dot(x), v.dot(y), v.dot(z)};
+    [[nodiscard]] JTX_HOSTDEV Vec3f ToLocal(const Vec3f &v) const {
+        return {v.Dot(x), v.Dot(y), v.Dot(z)};
     }
 
-    [[nodiscard]] JTX_HOSTDEV Vec3f toWorld(const Vec3f &v) const {
+    [[nodiscard]] JTX_HOSTDEV Vec3f ToWorld(const Vec3f &v) const {
         return x * v.x + y * v.y + z * v.z;
     }
 };

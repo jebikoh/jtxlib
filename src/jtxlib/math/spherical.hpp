@@ -11,7 +11,7 @@
 namespace jtx {
 //region Spherical coordinates
 JTX_INLINE float sphericalTriangleArea(Vec3f &a, Vec3f &b, Vec3f &c) {
-    return jtx::abs(2 * jtx::atan2(a.dot(b.cross(c)), 1 + a.dot(b) + b.dot(c) + c.dot(a)));
+    return jtx::abs(2 * jtx::atan2(a.Dot(b.cross(c)), 1 + a.Dot(b) + b.Dot(c) + c.Dot(a)));
 }
 
 JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
@@ -56,7 +56,7 @@ JTX_INLINE float cosTheta(const Vec3f &w) { return w.z; }
 
 JTX_INLINE float cos2Theta(const Vec3f &w) { return w.z * w.z; }
 
-JTX_INLINE float absCosTheta(const Vec3f &w) { return jtx::abs(w.z); }
+JTX_INLINE float AbsCosTheta(const Vec3f &w) { return jtx::abs(w.z); }
 
 JTX_INLINE float sin2Theta(const Vec3f &w) { return jtx::max(0.0f, 1.0f - cos2Theta(w)); }
 
@@ -177,7 +177,7 @@ public:
 };
 
 JTX_INLINE bool inside(const DirectionCone &cone, const Vec3f &v) {
-    return !cone.isEmpty() && cone.dir.dot(v) >= cone.cosTheta;
+    return !cone.isEmpty() && cone.dir.Dot(v) >= cone.cosTheta;
 }
 
 JTX_INLINE DirectionCone boundSubtendedDirection(const BBox3f &bounds, const Vec3f &p) {
@@ -207,7 +207,7 @@ JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
     if (theta_o >= JTX_PI_F) return DirectionCone::entireSphere();
 
     float theta_r = theta_o - theta_a;
-    Vec3f wr = jtx::cross(a.dir, b.dir);
+    Vec3f wr = jtx::Cross(a.dir, b.dir);
     if (wr.lenSqr() == 0) return DirectionCone::entireSphere();
     auto w = jtx::rotate(jtx::degrees(theta_r), wr).applyToVec(a.dir);
     return {w, jtx::cos(theta_o)};
@@ -217,7 +217,7 @@ JTX_HOSTDEV JTX_INLINE bool equals(const DirectionCone &a, const DirectionCone &
     return a.equals(b, epsilon);
 }
 //endregion
-JTX_HOSTDEV JTX_INLINE bool sameHemisphere(Vec3f w, Vec3f wp) {
+JTX_HOSTDEV JTX_INLINE bool SameHemisphere(Vec3f w, Vec3f wp) {
     return w.z * wp.z > 0;
 }
 }

@@ -21,7 +21,7 @@ public:
     JTX_HOSTDEV Quaternion operator+(const Quaternion &q) const { return {w + q.w, v + q.v}; }
     JTX_HOSTDEV Quaternion operator-(const Quaternion &q) const { return {w - q.w, v - q.v}; }
     JTX_HOSTDEV Quaternion operator-() const { return {-w, -v}; }
-    JTX_HOSTDEV Quaternion operator*(const Quaternion &q) const { return {w * q.w - v.dot(q.v), w * q.v + q.w * v + v.cross(q.v)}; }
+    JTX_HOSTDEV Quaternion operator*(const Quaternion &q) const { return {w * q.w - v.Dot(q.v), w * q.v + q.w * v + v.cross(q.v)}; }
     JTX_HOSTDEV Quaternion operator*(const float s) const { return {w * s, v * s}; }
     JTX_HOSTDEV Quaternion operator/(const float s) const {
         ASSERT(jtx::abs(s) > JTX_EPSILON);
@@ -59,7 +59,7 @@ public:
 
     JTX_HOSTDEV bool operator==(const Quaternion &q) const { return w == q.w && v == q.v; }
 
-    [[nodiscard]] JTX_HOSTDEV float dot(const Quaternion &q) const { return w * q.w + v.dot(q.v); }
+    [[nodiscard]] JTX_HOSTDEV float dot(const Quaternion &q) const { return w * q.w + v.Dot(q.v); }
     [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::sqrt(this->dot(*this)); }
     /**
      * Normalizes this quaternion

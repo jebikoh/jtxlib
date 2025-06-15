@@ -194,8 +194,8 @@ namespace jtx {
         static Transform lookAt(const Point3f &pos, const Point3f &target, const Vec3f &up) {
             Vec3f dir = jtx::normalize(target - pos);
             ASSERT((jtx::cross(jtx::normalize(up), dir)).len() != 0);
-            Vec3f right = jtx::normalize(jtx::cross(jtx::normalize(up), dir));
-            Vec3f newUp = jtx::cross(dir, right);
+            Vec3f right = jtx::normalize(jtx::Cross(jtx::normalize(up), dir));
+            Vec3f newUp = jtx::Cross(dir, right);
 
             Mat4 m(right.x, newUp.x, dir.x, pos.x,
                    right.y, newUp.y, dir.y, pos.y,
