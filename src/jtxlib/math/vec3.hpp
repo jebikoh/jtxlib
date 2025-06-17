@@ -336,14 +336,14 @@ public:
         return jtx::abs(Dot(other));
     }
 
-    [[nodiscard]] JTX_HOSTDEV float lenSqr() const {
+    [[nodiscard]] JTX_HOSTDEV float LenSqr() const {
         return x * x + y * y + z * z;
     }
 
-    [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::sqrt(lenSqr()); }
+    [[nodiscard]] JTX_HOSTDEV float Length() const { return jtx::sqrt(LenSqr()); }
 
-    JTX_HOSTDEV Vec3 &normalize() {
-        float l = len();
+    JTX_HOSTDEV Vec3 &Normalize() {
+        float l = Length();
         if (l != 0) {
             (*this) /= l;
         }

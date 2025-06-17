@@ -20,12 +20,12 @@ JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
     Vec3f cd = c.cross(d);
     Vec3f da = d.cross(a);
 
-    if (ab.lenSqr() == 0 || bc.lenSqr() == 0 || cd.lenSqr() == 0 || da.lenSqr() == 0) return 0;
+    if (ab.LenSqr() == 0 || bc.LenSqr() == 0 || cd.LenSqr() == 0 || da.LenSqr() == 0) return 0;
 
-    ab.normalize();
-    bc.normalize();
-    cd.normalize();
-    da.normalize();
+    ab.Normalize();
+    bc.Normalize();
+    cd.Normalize();
+    da.Normalize();
 
     return jtx::abs(
             jtx::angle(da, -ab) + jtx::angle(ab, -bc) + jtx::angle(bc, -cd) + jtx::angle(cd, -da) - 2 * JTX_PI_F);
@@ -111,7 +111,7 @@ public:
             v.x = (1 - jtx::abs(v.y)) * sign(xo);
             v.y = (1 - jtx::abs(xo)) * sign(v.y);
         }
-        return v.normalize();
+        return v.Normalize();
     }
 
 private:
@@ -160,7 +160,7 @@ public:
     //region Constructors
     DirectionCone() = default;
 
-    DirectionCone(const Vec3f &dir, float cosTheta) : dir(jtx::normalize(dir)), cosTheta(cosTheta) {}
+    DirectionCone(const Vec3f &dir, float cosTheta) : dir(jtx::Normalize(dir)), cosTheta(cosTheta) {}
 
     explicit DirectionCone(const jtx::Vec3f &dir) : DirectionCone(dir, 1.0f) {}
     //endregion
@@ -186,8 +186,8 @@ JTX_INLINE DirectionCone boundSubtendedDirection(const BBox3f &bounds, const Vec
     bounds.boundingSphere(&c, &r);
     if (jtx::distanceSqr(p, c) < r * r) return DirectionCone::entireSphere();
 
-    Vec3f w = jtx::normalize(c - p);
-    return {w, jtx::safeSqrt(1 - (r * r) / jtx::distanceSqr(p, c))};
+    Vec3f w = jtx::Normalize(c - p);
+    return {w, jtx::SafeSqrt(1 - (r * r) / jtx::distanceSqr(p, c))};
 }
 
 JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
@@ -208,7 +208,7 @@ JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
 
     float theta_r = theta_o - theta_a;
     Vec3f wr = jtx::Cross(a.dir, b.dir);
-    if (wr.lenSqr() == 0) return DirectionCone::entireSphere();
+    if (wr.LenSqr() == 0) return DirectionCone::entireSphere();
     auto w = jtx::rotate(jtx::degrees(theta_r), wr).applyToVec(a.dir);
     return {w, jtx::cos(theta_o)};
 }

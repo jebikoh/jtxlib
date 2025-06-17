@@ -192,9 +192,9 @@ namespace jtx {
         // Note to self, PBRT calculates worldFromCamera, then inverts it
         // Old JTX calculated cameraFromWorld (and also was row-major)
         static Transform lookAt(const Point3f &pos, const Point3f &target, const Vec3f &up) {
-            Vec3f dir = jtx::normalize(target - pos);
+            Vec3f dir = jtx::Normalize(target - pos);
             ASSERT((jtx::cross(jtx::normalize(up), dir)).len() != 0);
-            Vec3f right = jtx::normalize(jtx::Cross(jtx::normalize(up), dir));
+            Vec3f right = jtx::Normalize(jtx::Cross(jtx::Normalize(up), dir));
             Vec3f newUp = jtx::Cross(dir, right);
 
             Mat4 m(right.x, newUp.x, dir.x, pos.x,

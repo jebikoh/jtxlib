@@ -502,9 +502,9 @@ lookAt(const Vec3f &right, const Vec3f &vup, const Vec3f &direction, const Vec3f
 }
 
 JTX_HOSTDEV JTX_INLINE Mat4 lookAt(const Vec3f &position, const Vec3f &target, const Vec3f &up) {
-    auto direction = (target - position).normalize();
-    Vec3f right = jtx::Cross(up, direction).normalize();
-    Vec3f vup = jtx::Cross(direction, right).normalize();
+    auto direction = (target - position).Normalize();
+    Vec3f right = jtx::Cross(up, direction).Normalize();
+    Vec3f vup = jtx::Cross(direction, right).Normalize();
     return lookAt(right, vup, direction, position);
 }
 

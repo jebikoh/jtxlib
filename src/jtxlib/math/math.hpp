@@ -240,7 +240,7 @@ JTX_HOST JTX_INLINE double pow(const double base, const double exp) {
 // #endif
 
 JTX_FP_ONLY_T
-JTX_HOSTDEV JTX_INLINE T safeSqrt(T v) {
+JTX_HOSTDEV JTX_INLINE T SafeSqrt(T v) {
     return jtx::sqrt(jtx::max(0.0f, v));
 }
 

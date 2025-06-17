@@ -61,8 +61,8 @@ JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec4<T> &a, const Vec4<T> &b) {
 
 #pragma region Normalize
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec2<T> normalize(const Vec2<T> &v) {
-    float l = v.len();
+JTX_HOSTDEV JTX_INLINE Vec2<T> Normalize(const Vec2<T> &v) {
+    float l = v.Length();
     if (l != 0) {
         return v / l;
     } else {
@@ -71,8 +71,8 @@ JTX_HOSTDEV JTX_INLINE Vec2<T> normalize(const Vec2<T> &v) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec3<T> normalize(const Vec3<T> &v) {
-    float l = v.len();
+JTX_HOSTDEV JTX_INLINE Vec3<T> Normalize(const Vec3<T> &v) {
+    float l = v.Length();
     if (l != 0) {
         return v / l;
     } else {
@@ -81,8 +81,8 @@ JTX_HOSTDEV JTX_INLINE Vec3<T> normalize(const Vec3<T> &v) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec4<T> normalize(const Vec4<T> &v) {
-    float l = v.len();
+JTX_HOSTDEV JTX_INLINE Vec4<T> Normalize(const Vec4<T> &v) {
+    float l = v.Length();
     if (l != 0) {
         return v / l;
     } else {
@@ -211,17 +211,17 @@ JTX_HOSTDEV JTX_INLINE Vec4<T> fma(const Vec4<T> &a, const Vec4<T> &b, const Vec
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float angle(const Vec2<T> &a, const Vec2<T> &b) {
     if (a.Dot(b) < 0) {
-        return JTX_PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
+        return JTX_PI_F - 2 * jtx::clampAsin((a - b).Length() / 2);
     }
-    return 2 * jtx::clampAsin((a - b).len() / 2);
+    return 2 * jtx::clampAsin((a - b).Length() / 2);
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float angle(const Vec3<T> &a, const Vec3<T> &b) {
     if (a.Dot(b) < 0) {
-        return JTX_PI_F - 2 * jtx::clampAsin((a - b).len() / 2);
+        return JTX_PI_F - 2 * jtx::clampAsin((a - b).Length() / 2);
     }
-    return 2 * jtx::clampAsin((a - b).len() / 2);
+    return 2 * jtx::clampAsin((a - b).Length() / 2);
 }
 #pragma endregion
 
@@ -240,32 +240,32 @@ JTX_HOSTDEV JTX_INLINE Vec3<T> gramSchmidt(const Vec3<T> &a, const Vec3<T> &b) {
 #pragma region Distance
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distanceSqr(const Vec2<T> &a, const Vec2<T> &b) {
-    return (a - b).lenSqr();
+    return (a - b).LenSqr();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distanceSqr(const Vec3<T> &a, const Vec3<T> &b) {
-    return (a - b).lenSqr();
+    return (a - b).LenSqr();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distanceSqr(const Vec4<T> &a, const Vec4<T> &b) {
-    return (a - b).lenSqr();
+    return (a - b).LenSqr();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distance(const Vec2<T> &a, const Vec2<T> &b) {
-    return (a - b).len();
+    return (a - b).Length();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distance(const Vec3<T> &a, const Vec3<T> &b) {
-    return (a - b).len();
+    return (a - b).Length();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distance(const Vec4<T> &a, const Vec4<T> &b) {
-    return (a - b).len();
+    return (a - b).Length();
 }
 #pragma endregion
 
@@ -297,7 +297,7 @@ JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec3<T> refract(const Vec3<T> &uv, const Vec3<T> &n, T etai_over_etat) {
     auto cos_theta = ::fminf(jtx::dot(-uv, n), 1.0);
     auto r_out_perp = etai_over_etat * (uv + cos_theta * n);
-    auto r_out_prll = -::sqrtf(::fabs(1.0 - r_out_perp.lenSqr())) * n;
+    auto r_out_prll = -::sqrtf(::fabs(1.0 - r_out_perp.LenSqr())) * n;
     return r_out_perp + r_out_prll;
 }
 #pragma endregion

@@ -12,8 +12,8 @@ namespace jtx{
         float r = 1 - std::abs(signedDist);
 
         float phi = (r == 0 ? 1 : (v_p - u_p) / r + 1) * JTX_PI_F / 4;
-        return {jtx::copysign(std::cos(phi), u) * r * jtx::safeSqrt(2 - r * r),
-                jtx::copysign(std::sin(phi), v) * r * jtx::safeSqrt(2 - r * r),
+        return {jtx::copysign(std::cos(phi), u) * r * jtx::SafeSqrt(2 - r * r),
+                jtx::copysign(std::sin(phi), v) * r * jtx::SafeSqrt(2 - r * r),
                 jtx::copysign(1 - r * r, signedDist)};
     }
 
@@ -23,7 +23,7 @@ namespace jtx{
         float y = jtx::abs(d.y);
         float z = jtx::abs(d.z);
 
-        float r = jtx::safeSqrt(1 - z);
+        float r = jtx::SafeSqrt(1 - z);
         float a = jtx::max(x, y);
         float b = jtx::min(x, y);
         b = a == 0 ? 0 : b / a;

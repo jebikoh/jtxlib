@@ -125,7 +125,7 @@ namespace jtx {
 
 
     JTX_HOSTDEV Mat4 rotate(float sinTheta, float cosTheta, const Vec3f &axis) {
-        Vec3f a = jtx::normalize(axis);
+        Vec3f a = jtx::Normalize(axis);
         Mat4 m;
         // Compute rotation of first basis vector
         m[0][0] = a.x * a.x + (1 - a.x * a.x) * cosTheta;
