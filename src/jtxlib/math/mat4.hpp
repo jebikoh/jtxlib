@@ -216,7 +216,7 @@ public:
     JTX_HOSTDEV bool equals(const Mat4 &other, const float epsilon = JTX_EPSILON) const {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
-                if (jtx::abs(data[i][j] - other[i][j]) > epsilon) {
+                if (jtx::Abs(data[i][j] - other[i][j]) > epsilon) {
                     return false;
                 }
             }

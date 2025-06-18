@@ -27,35 +27,35 @@ JTX_HOSTDEV JTX_INLINE T dot(const Vec4<T> &a, const Vec4<T> &b) {
 
 #pragma region ABS
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec2<T> abs(const Vec2<T> &v) {
-    return {jtx::abs(v.x), jtx::abs(v.y)};
+JTX_HOSTDEV JTX_INLINE Vec2<T> Abs(const Vec2<T> &v) {
+    return {jtx::Abs(v.x), jtx::Abs(v.y)};
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec3<T> abs(const Vec3<T> &v) {
-    return {jtx::abs(v.x), jtx::abs(v.y), jtx::abs(v.z)};
+JTX_HOSTDEV JTX_INLINE Vec3<T> Abs(const Vec3<T> &v) {
+    return {jtx::Abs(v.x), jtx::Abs(v.y), jtx::Abs(v.z)};
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec4<T> abs(const Vec4<T> &v) {
-    return {jtx::abs(v.x), jtx::abs(v.y), jtx::abs(v.z), jtx::abs(v.w)};
+JTX_HOSTDEV JTX_INLINE Vec4<T> Abs(const Vec4<T> &v) {
+    return {jtx::Abs(v.x), jtx::Abs(v.y), jtx::Abs(v.z), jtx::Abs(v.w)};
 }
 #pragma endregion
 
 #pragma region ABS Dot Product
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec2<T> &a, const Vec2<T> &b) {
-    return jtx::abs(a.Dot(b));
+    return jtx::Abs(a.Dot(b));
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec3<T> &a, const Vec3<T> &b) {
-    return jtx::abs(a.Dot(b));
+    return jtx::Abs(a.Dot(b));
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE T AbsDot(const Vec4<T> &a, const Vec4<T> &b) {
-    return jtx::abs(a.Dot(b));
+    return jtx::Abs(a.Dot(b));
 }
 #pragma endregion
 

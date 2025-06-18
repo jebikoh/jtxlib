@@ -166,9 +166,9 @@ namespace jtx {
     JTX_HOSTDEV Mat4 rotateFromTo(const Vec3f &from, const Vec3f &to) {
         // Intermediate vector
         Vec3f refl;
-        if (jtx::abs(from.x) < 0.72f && jtx::abs(to.x) < 0.72f) {
+        if (jtx::Abs(from.x) < 0.72f && jtx::Abs(to.x) < 0.72f) {
             refl = Vec3f(1, 0, 0);
-        } else if (jtx::abs(from.y) < 0.72f && jtx::abs(to.y) < 0.72f) {
+        } else if (jtx::Abs(from.y) < 0.72f && jtx::Abs(to.y) < 0.72f) {
             refl = Vec3f(0, 1, 0);
         } else {
             refl = Vec3f(0, 0, 1);

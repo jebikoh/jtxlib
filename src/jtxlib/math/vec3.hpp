@@ -326,14 +326,14 @@ public:
 
 
     JTX_HOSTDEV Vec3 &abs() {
-        x = jtx::abs(x);
-        y = jtx::abs(y);
-        z = jtx::abs(z);
+        x = jtx::Abs(x);
+        y = jtx::Abs(y);
+        z = jtx::Abs(z);
         return *this;
     }
 
     JTX_HOSTDEV T absdot(const Vec3 &other) {
-        return jtx::abs(Dot(other));
+        return jtx::Abs(Dot(other));
     }
 
     [[nodiscard]] JTX_HOSTDEV float LenSqr() const {
@@ -351,7 +351,7 @@ public:
     }
 
     [[nodiscard]] JTX_HOSTDEV T l1norm() const {
-        return jtx::abs(x) + jtx::abs(y) + jtx::abs(z);
+        return jtx::Abs(x) + jtx::Abs(y) + jtx::Abs(z);
     }
 
     JTX_HOSTDEV Vec3 &ceil() {
@@ -446,7 +446,7 @@ JTX_HOSTDEV bool equals(const Vec3<T> &a, const Vec3<T> &b, float epsilon = JTX_
 #pragma region Vector Frame
 JTX_NUM_ONLY_T
 JTX_HOSTDEV void coordinateSystem(const Vec3<T> v1, Vec3<T> *v2, Vec3<T> *v3) {
-    float sign = jtx::copysign(1.0f, v1.z);
+    float sign = jtx::CopySign(1.0f, v1.z);
     float a = -1.0f / (sign + v1.z);
     float b = v1.x * v1.y * a;
     *v2 = Vec3{1.0f + sign * v1.x * v1.x * a, sign * b, -sign * v1.x};

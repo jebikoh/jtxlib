@@ -223,13 +223,13 @@ public:
     }
 
     JTX_HOSTDEV Vec2 &abs() {
-        x = jtx::abs(x);
-        y = jtx::abs(y);
+        x = jtx::Abs(x);
+        y = jtx::Abs(y);
         return *this;
     }
 
     JTX_HOSTDEV T absdot(const Vec2 &other) {
-        return jtx::abs(dot(other));
+        return jtx::Abs(dot(other));
     }
 
     JTX_HOSTDEV float len() const { return jtx::Sqrt(x * x + y * y); }

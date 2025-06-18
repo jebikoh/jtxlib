@@ -12,16 +12,16 @@ namespace jtx{
         float r = 1 - std::abs(signedDist);
 
         float phi = (r == 0 ? 1 : (v_p - u_p) / r + 1) * JTX_PI_F / 4;
-        return {jtx::copysign(std::cos(phi), u) * r * jtx::SafeSqrt(2 - r * r),
-                jtx::copysign(std::sin(phi), v) * r * jtx::SafeSqrt(2 - r * r),
-                jtx::copysign(1 - r * r, signedDist)};
+        return {jtx::CopySign(std::cos(phi), u) * r * jtx::SafeSqrt(2 - r * r),
+                jtx::CopySign(std::sin(phi), v) * r * jtx::SafeSqrt(2 - r * r),
+                jtx::CopySign(1 - r * r, signedDist)};
     }
 
     Point2f equalAreaSphereToSquare(const Point3f &d) {
         ASSERT(d.lenSqr() < 1.001f && d.lenSqr() > 0.999f);
-        float x = jtx::abs(d.x);
-        float y = jtx::abs(d.y);
-        float z = jtx::abs(d.z);
+        float x = jtx::Abs(d.x);
+        float y = jtx::Abs(d.y);
+        float z = jtx::Abs(d.z);
 
         float r = jtx::SafeSqrt(1 - z);
         float a = jtx::max(x, y);
@@ -47,8 +47,8 @@ namespace jtx{
             v = 1 - v;
         }
 
-        u = jtx::copysign(u, d.x);
-        v = jtx::copysign(v, d.y);
+        u = jtx::CopySign(u, d.x);
+        v = jtx::CopySign(v, d.y);
 
         return {0.5f * (u+1), 0.5f * (v+1)};
     }

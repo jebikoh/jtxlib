@@ -81,7 +81,7 @@ JTX_HOSTDEV JTX_INLINE
 JTX_FP_ONLY_T
 JTX_HOSTDEV JTX_INLINE
         T
-        copysign(T mag, T sgn) {
+        CopySign(T mag, T sgn) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::copysign(mag, sgn);
 #else
@@ -124,13 +124,13 @@ JTX_HOST JTX_INLINE float bitsToFloat(uint32_t v) {
 template<typename T, typename U, typename V>
 JTX_HOST constexpr
 std::enable_if_t<std::is_arithmetic_v<T> && std::is_arithmetic_v<U> && std::is_arithmetic_v<V>, T>
-clamp(T val, U lo, V hi) {
+Clamp(T val, U lo, V hi) {
     if (val < lo) return T(lo);
     else if (val > hi) return T(hi);
     else return val;
 }
 
-JTX_HOSTDEV JTX_INLINE float clamp(float val, float lo, float hi) {
+JTX_HOSTDEV JTX_INLINE float Clamp(float val, float lo, float hi) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::fminf(::fmaxf(val, lo), hi);
 #else
@@ -138,7 +138,7 @@ JTX_HOSTDEV JTX_INLINE float clamp(float val, float lo, float hi) {
 #endif
 }
 
-JTX_HOSTDEV JTX_INLINE double clamp(double val, double lo, double hi) {
+JTX_HOSTDEV JTX_INLINE double Clamp(double val, double lo, double hi) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::fmin(::fmax(val, lo), hi);
 #else
@@ -196,7 +196,7 @@ JTX_INLINE size_t findInterval(size_t sz, const P &pred) {
         size = res ? size - (half + 1) : half;
     }
 
-    return jtx::clamp(static_cast<size_t>(first) - 1, 0, sz - 2);
+    return jtx::Clamp(static_cast<size_t>(first) - 1, 0, sz - 2);
 }
 
 }// namespace jtx

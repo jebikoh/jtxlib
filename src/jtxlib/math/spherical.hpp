@@ -11,7 +11,7 @@
 namespace jtx {
 //region Spherical coordinates
 JTX_INLINE float sphericalTriangleArea(Vec3f &a, Vec3f &b, Vec3f &c) {
-    return jtx::abs(2 * jtx::atan2(a.Dot(b.cross(c)), 1 + a.Dot(b) + b.Dot(c) + c.Dot(a)));
+    return jtx::Abs(2 * jtx::atan2(a.Dot(b.cross(c)), 1 + a.Dot(b) + b.Dot(c) + c.Dot(a)));
 }
 
 JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
@@ -27,7 +27,7 @@ JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
     cd.Normalize();
     da.Normalize();
 
-    return jtx::abs(
+    return jtx::Abs(
             jtx::angle(da, -ab) + jtx::angle(ab, -bc) + jtx::angle(bc, -cd) + jtx::angle(cd, -da) - 2 * JTX_PI_F);
 }
 
@@ -36,9 +36,9 @@ JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
  */
 JTX_INLINE Vec3f sphericalToCartesian(float sinTheta, float cosTheta, float phi) {
     return {
-            jtx::clamp(sinTheta, -1.0f, 1.0f) * jtx::cos(phi),
-            jtx::clamp(sinTheta, -1.0f, 1.0f) * jtx::sin(phi),
-            jtx::clamp(cosTheta, -1.0f, 1.0f)
+            jtx::Clamp(sinTheta, -1.0f, 1.0f) * jtx::cos(phi),
+            jtx::Clamp(sinTheta, -1.0f, 1.0f) * jtx::sin(phi),
+            jtx::Clamp(cosTheta, -1.0f, 1.0f)
     };
 }
 
@@ -56,7 +56,7 @@ JTX_INLINE float CosTheta(const Vec3f &w) { return w.z; }
 
 JTX_INLINE float Cos2Theta(const Vec3f &w) { return w.z * w.z; }
 
-JTX_INLINE float AbsCosTheta(const Vec3f &w) { return jtx::abs(w.z); }
+JTX_INLINE float AbsCosTheta(const Vec3f &w) { return jtx::Abs(w.z); }
 
 JTX_INLINE float Sin2Theta(const Vec3f &w) { return jtx::max(0.0f, 1.0f - Cos2Theta(w)); }
 
@@ -77,12 +77,12 @@ JTX_INLINE float Tan2Theta(const Vec3f &w, const float cos2Theta) {
 
 JTX_INLINE float CosPhi(const Vec3f &w) {
     const float s = SinTheta(w);
-    return (s == 0) ? 1 : jtx::clamp(w.x / s, -1.0f, 1.0f);
+    return (s == 0) ? 1 : jtx::Clamp(w.x / s, -1.0f, 1.0f);
 }
 
 JTX_INLINE float SinPhi(const Vec3f &w) {
     const float s = SinTheta(w);
-    return (s == 0) ? 0 : jtx::clamp(w.y / s, -1.0f, 1.0f);
+    return (s == 0) ? 0 : jtx::Clamp(w.y / s, -1.0f, 1.0f);
 }
 
 JTX_INLINE float cosDPhi(const Vec3f &wa, const Vec3f &wb) {
@@ -90,7 +90,7 @@ JTX_INLINE float cosDPhi(const Vec3f &wa, const Vec3f &wb) {
     auto wbXY = wb.x * wb.x + wb.y * wb.y;
     if (waXY == 0 || wbXY == 0) return 1;
 
-    return jtx::clamp((wa.x * wb.x + wa.y * wb.y) / jtx::Sqrt(waXY * wbXY), -1.0f, 1.0f);
+    return jtx::Clamp((wa.x * wb.x + wa.y * wb.y) / jtx::Sqrt(waXY * wbXY), -1.0f, 1.0f);
 }
 //endregion
 
@@ -105,8 +105,8 @@ public:
             x = encode(vec.x);
             y = encode(vec.y);
         } else {
-            x = encode((1 - jtx::abs(vec.y)) * sign(vec.x));
-            y = encode((1 - jtx::abs(vec.x)) * sign(vec.y));
+            x = encode((1 - jtx::Abs(vec.y)) * sign(vec.x));
+            y = encode((1 - jtx::Abs(vec.x)) * sign(vec.y));
         }
     };
 
@@ -114,20 +114,20 @@ public:
         Vec3f v;
         v.x = -1 + 2 * (static_cast<float>(x) / JTX_BITS_16);
         v.y = -1 + 2 * (static_cast<float>(y) / JTX_BITS_16);
-        v.z = 1 - jtx::abs(v.x) - jtx::abs(v.y);
+        v.z = 1 - jtx::Abs(v.x) - jtx::Abs(v.y);
         if (v.z < 0) {
             auto xo = v.x;
-            v.x = (1 - jtx::abs(v.y)) * sign(xo);
-            v.y = (1 - jtx::abs(xo)) * sign(v.y);
+            v.x = (1 - jtx::Abs(v.y)) * sign(xo);
+            v.y = (1 - jtx::Abs(xo)) * sign(v.y);
         }
         return v.Normalize();
     }
 
 private:
-    static JTX_INLINE float sign(float f) { return jtx::copysign(1.0f, f); }
+    static JTX_INLINE float sign(float f) { return jtx::CopySign(1.0f, f); }
 
     static JTX_INLINE uint16_t encode(float f) {
-        return static_cast<uint16_t>(jtx::round(jtx::clamp((f + 1) / 2, 0, 1) * JTX_BITS_16));
+        return static_cast<uint16_t>(jtx::round(jtx::Clamp((f + 1) / 2, 0, 1) * JTX_BITS_16));
     }
 
     uint16_t x, y;

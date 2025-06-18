@@ -9,7 +9,7 @@
 
 namespace jtx {
 JTX_NUM_ONLY_T
-JTX_HOSTDEV T abs(T v) {
+JTX_HOSTDEV T Abs(T v) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::abs(v);
 #else
@@ -126,22 +126,22 @@ JTX_HOSTDEV T abs(T v) {
 
     JTX_HOSTDEV JTX_INLINE float clampAsin(float theta) {
         ASSERT(theta >= -1.0001f && theta <= 1.0001f);
-        return jtx::asin(jtx::clamp(theta, -1.0f, 1.0f));
+        return jtx::asin(jtx::Clamp(theta, -1.0f, 1.0f));
     }
 
     JTX_HOSTDEV JTX_INLINE double clampAsin(double theta) {
         ASSERT(theta >= -1.0001f && theta <= 1.0001);
-        return jtx::asin(jtx::clamp(theta, -1.0, 1.0));
+        return jtx::asin(jtx::Clamp(theta, -1.0, 1.0));
     }
 
     JTX_HOSTDEV JTX_INLINE float clampAcos(float theta) {
         ASSERT(theta >= -1.0001f && theta <= 1.0001f);
-        return jtx::acos(jtx::clamp(theta, -1.0f, 1.0f));
+        return jtx::acos(jtx::Clamp(theta, -1.0f, 1.0f));
     }
 
     JTX_HOSTDEV JTX_INLINE double clampAcos(double theta) {
         ASSERT(theta >= -1.0001 && theta <= 1.0001);
-        return jtx::acos(jtx::clamp(theta, -1.0, 1.0));
+        return jtx::acos(jtx::Clamp(theta, -1.0, 1.0));
     }
 
     JTX_HOSTDEV JTX_INLINE float sinXOverX(float theta) {

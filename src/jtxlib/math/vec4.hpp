@@ -256,15 +256,15 @@ public:
     }
 
     JTX_HOSTDEV Vec4 &abs() {
-        x = jtx::abs(x);
-        y = jtx::abs(y);
-        z = jtx::abs(z);
-        w = jtx::abs(w);
+        x = jtx::Abs(x);
+        y = jtx::Abs(y);
+        z = jtx::Abs(z);
+        w = jtx::Abs(w);
         return *this;
     }
 
     JTX_HOSTDEV T absdot(const Vec4 &other) {
-        return jtx::abs(dot(other));
+        return jtx::Abs(dot(other));
     }
 
     [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::Sqrt(x * x + y * y + z * z + w * w); }
@@ -340,10 +340,10 @@ JTX_HOSTDEV JTX_INLINE uint32_t packUnorm4x8(const Vec4f &v) {
         uint32_t out;
     } pack;
 
-    pack.in[0] = jtx::round(jtx::clamp(v[0], 0.0f, 1.0f) * 255.0f);
-    pack.in[1] = jtx::round(jtx::clamp(v[1], 0.0f, 1.0f) * 255.0f);
-    pack.in[2] = jtx::round(jtx::clamp(v[2], 0.0f, 1.0f) * 255.0f);
-    pack.in[3] = jtx::round(jtx::clamp(v[3], 0.0f, 1.0f) * 255.0f);
+    pack.in[0] = jtx::round(jtx::Clamp(v[0], 0.0f, 1.0f) * 255.0f);
+    pack.in[1] = jtx::round(jtx::Clamp(v[1], 0.0f, 1.0f) * 255.0f);
+    pack.in[2] = jtx::round(jtx::Clamp(v[2], 0.0f, 1.0f) * 255.0f);
+    pack.in[3] = jtx::round(jtx::Clamp(v[3], 0.0f, 1.0f) * 255.0f);
 
     return pack.out;
 }
