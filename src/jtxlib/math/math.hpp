@@ -179,7 +179,7 @@ dop(T a, T b, T c, T d) {
     return a * b - c * d;
 }
 
-JTX_FP_ONLY_T JTX_HOSTDEV T sqr(T val) {
+JTX_FP_ONLY_T JTX_HOSTDEV T Sqr(T val) {
     return val * val;
 }
 
@@ -194,7 +194,7 @@ JTX_HOSTDEV JTX_INLINE float log(float val) {
 JTX_FP_ONLY_T
 JTX_HOSTDEV JTX_INLINE
         T
-        sqrt(T val) {
+        Sqrt(T val) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::sqrt(val);
 #else
@@ -241,7 +241,7 @@ JTX_HOST JTX_INLINE double pow(const double base, const double exp) {
 
 JTX_FP_ONLY_T
 JTX_HOSTDEV JTX_INLINE T SafeSqrt(T v) {
-    return jtx::sqrt(jtx::max(0.0f, v));
+    return jtx::Sqrt(jtx::max(0.0f, v));
 }
 
 JTX_HOSTDEV JTX_INLINE float lerp(float a, float b, float t) {

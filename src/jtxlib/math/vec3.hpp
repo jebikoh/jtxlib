@@ -340,7 +340,7 @@ public:
         return x * x + y * y + z * z;
     }
 
-    [[nodiscard]] JTX_HOSTDEV float Length() const { return jtx::sqrt(LenSqr()); }
+    [[nodiscard]] JTX_HOSTDEV float Length() const { return jtx::Sqrt(LenSqr()); }
 
     JTX_HOSTDEV Vec3 &Normalize() {
         float l = Length();

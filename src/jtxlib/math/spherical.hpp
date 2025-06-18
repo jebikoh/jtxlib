@@ -52,27 +52,36 @@ JTX_INLINE float sphericalPhi(const Vec3f &v) {
     return (p < 0) ? p + 2 * JTX_PI_F : p;
 }
 
-JTX_INLINE float cosTheta(const Vec3f &w) { return w.z; }
+JTX_INLINE float CosTheta(const Vec3f &w) { return w.z; }
 
-JTX_INLINE float cos2Theta(const Vec3f &w) { return w.z * w.z; }
+JTX_INLINE float Cos2Theta(const Vec3f &w) { return w.z * w.z; }
 
 JTX_INLINE float AbsCosTheta(const Vec3f &w) { return jtx::abs(w.z); }
 
-JTX_INLINE float sin2Theta(const Vec3f &w) { return jtx::max(0.0f, 1.0f - cos2Theta(w)); }
+JTX_INLINE float Sin2Theta(const Vec3f &w) { return jtx::max(0.0f, 1.0f - Cos2Theta(w)); }
 
-JTX_INLINE float sinTheta(const Vec3f &w) { return jtx::sqrt(sin2Theta(w)); }
+JTX_INLINE float SinTheta(const Vec3f &w) { return jtx::Sqrt(Sin2Theta(w)); }
 
-JTX_INLINE float tanTheta(const Vec3f &w) { return sinTheta(w) / cosTheta(w); }
+JTX_INLINE float TanTheta(const Vec3f &w) { return SinTheta(w) / CosTheta(w); }
 
-JTX_INLINE float tan2Theta(const Vec3f &w) { return sin2Theta(w) / cos2Theta(w); }
+JTX_INLINE float Tan2Theta(const Vec3f &w) {
+    const float cos2Theta = Cos2Theta(w);
+    const float sin2Theta = jtx::max(0.0f, 1.0f - cos2Theta);
+    return sin2Theta / cos2Theta;
+}
 
-JTX_INLINE float cosPhi(const Vec3f &w) {
-    float s = sinTheta(w);
+JTX_INLINE float Tan2Theta(const Vec3f &w, const float cos2Theta) {
+    const float sin2Theta = jtx::max(0.0f, 1.0f - cos2Theta);
+    return sin2Theta / cos2Theta;
+}
+
+JTX_INLINE float CosPhi(const Vec3f &w) {
+    const float s = SinTheta(w);
     return (s == 0) ? 1 : jtx::clamp(w.x / s, -1.0f, 1.0f);
 }
 
-JTX_INLINE float sinPhi(const Vec3f &w) {
-    float s = sinTheta(w);
+JTX_INLINE float SinPhi(const Vec3f &w) {
+    const float s = SinTheta(w);
     return (s == 0) ? 0 : jtx::clamp(w.y / s, -1.0f, 1.0f);
 }
 
@@ -81,7 +90,7 @@ JTX_INLINE float cosDPhi(const Vec3f &wa, const Vec3f &wb) {
     auto wbXY = wb.x * wb.x + wb.y * wb.y;
     if (waXY == 0 || wbXY == 0) return 1;
 
-    return jtx::clamp((wa.x * wb.x + wa.y * wb.y) / jtx::sqrt(waXY * wbXY), -1.0f, 1.0f);
+    return jtx::clamp((wa.x * wb.x + wa.y * wb.y) / jtx::Sqrt(waXY * wbXY), -1.0f, 1.0f);
 }
 //endregion
 

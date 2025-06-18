@@ -232,7 +232,7 @@ public:
         return jtx::abs(dot(other));
     }
 
-    JTX_HOSTDEV float len() const { return jtx::sqrt(x * x + y * y); }
+    JTX_HOSTDEV float len() const { return jtx::Sqrt(x * x + y * y); }
 
     JTX_HOSTDEV float lenSqr() const {
         return x * x + y * y;

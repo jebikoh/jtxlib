@@ -60,7 +60,7 @@ public:
     JTX_HOSTDEV bool operator==(const Quaternion &q) const { return w == q.w && v == q.v; }
 
     [[nodiscard]] JTX_HOSTDEV float dot(const Quaternion &q) const { return w * q.w + v.Dot(q.v); }
-    [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::sqrt(this->dot(*this)); }
+    [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::Sqrt(this->dot(*this)); }
     /**
      * Normalizes this quaternion
      */

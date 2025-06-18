@@ -267,7 +267,7 @@ public:
         return jtx::abs(dot(other));
     }
 
-    [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::sqrt(x * x + y * y + z * z + w * w); }
+    [[nodiscard]] JTX_HOSTDEV float len() const { return jtx::Sqrt(x * x + y * y + z * z + w * w); }
 
     JTX_HOSTDEV Vec4 &normalize() {
         float l = len();

@@ -388,7 +388,7 @@ JTX_DEV auto distanceSqr(const AABB3<T> &b, const Point3<U> &p) {
 
 template<typename T, typename U, typename = std::enable_if_t<std::is_arithmetic_v<T> && std::is_arithmetic_v<U>>>
 JTX_DEV auto distance(const AABB3<T> &b, const Point3<U> &p) {
-    return jtx::sqrt(distanceSqr(b, p));
+    return jtx::Sqrt(distanceSqr(b, p));
 }
 
 JTX_NUM_ONLY_T
@@ -466,7 +466,7 @@ JTX_DEV auto distanceSqr(const AABB2<T> &b, const Point2<U> &p) {
 
 template<typename T, typename U, typename = std::enable_if_t<std::is_arithmetic_v<T> && std::is_arithmetic_v<U>>>
 JTX_DEV auto distance(const AABB2<T> &b, const Point2<U> &p) {
-    return jtx::sqrt(distanceSqr(b, p));
+    return jtx::Sqrt(distanceSqr(b, p));
 }
 
 JTX_NUM_ONLY_T
