@@ -140,17 +140,17 @@ JTX_HOSTDEV JTX_INLINE Vec4<T> min(const Vec4<T> &a, const Vec4<T> &b) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec2<T> max(const Vec2<T> &a, const Vec2<T> &b) {
+JTX_HOSTDEV JTX_INLINE Vec2<T> Max(const Vec2<T> &a, const Vec2<T> &b) {
     return {std::max(a.x, b.x), std::max(a.y, b.y)};
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec3<T> max(const Vec3<T> &a, const Vec3<T> &b) {
+JTX_HOSTDEV JTX_INLINE Vec3<T> Max(const Vec3<T> &a, const Vec3<T> &b) {
     return {std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z)};
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE Vec4<T> max(const Vec4<T> &a, const Vec4<T> &b) {
+JTX_HOSTDEV JTX_INLINE Vec4<T> Max(const Vec4<T> &a, const Vec4<T> &b) {
     return {std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z), std::max(a.w, b.w)};
 }
 #pragma endregion
@@ -174,18 +174,18 @@ JTX_HOSTDEV JTX_INLINE T hprod(const Vec4<T> &v) {
 
 #pragma region LERP
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE auto lerp(const Vec2<T> &a, const Vec2<T> &b, T t) {
+JTX_HOSTDEV JTX_INLINE auto Lerp(const Vec2<T> &a, const Vec2<T> &b, T t) {
     return (1 - t) * a + b * t;
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE auto
-lerp(const Vec3<T> &a, const Vec3<T> &b, T t) {
+Lerp(const Vec3<T> &a, const Vec3<T> &b, T t) {
     return (1 - t) * a + b * t;
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE auto lerp(const Vec4<T> &a, const Vec4<T> &b, T t) {
+JTX_HOSTDEV JTX_INLINE auto Lerp(const Vec4<T> &a, const Vec4<T> &b, T t) {
     return (1 - t) * a + b * t;
 }
 #pragma endregion

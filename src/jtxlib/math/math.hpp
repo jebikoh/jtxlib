@@ -241,10 +241,10 @@ JTX_HOST JTX_INLINE double pow(const double base, const double exp) {
 
 JTX_FP_ONLY_T
 JTX_HOSTDEV JTX_INLINE T SafeSqrt(T v) {
-    return jtx::Sqrt(jtx::max(0.0f, v));
+    return jtx::Sqrt(jtx::Max(0.0f, v));
 }
 
-JTX_HOSTDEV JTX_INLINE float lerp(float a, float b, float t) {
+JTX_HOSTDEV JTX_INLINE float Lerp(float a, float b, float t) {
     return a * (1 - t) + b * t;
 }
 
@@ -292,7 +292,7 @@ JTX_HOST JTX_INLINE float fastExp(float x) {
 #endif
 
 JTX_HOSTDEV JTX_INLINE float clampZero(float val) {
-    return jtx::max<float>(0.f, val);
+    return jtx::Max<float>(0.f, val);
 }
 
 //region EFT

@@ -44,7 +44,7 @@ public:
 
     JTX_HOSTDEV AABB3(const Point3<T> &a, const Point3<T> &b) {
         pmin = jtx::min(a, b);
-        pmax = jtx::max(a, b);
+        pmax = jtx::Max(a, b);
     }
 
     JTX_HOSTDEV explicit AABB3(const Point3<T> &p) : pmin(p), pmax(p) {
@@ -93,13 +93,13 @@ public:
 
     JTX_HOSTDEV AABB3 &merge(const Point3<T> &p) {
         pmin = jtx::min(pmin, p);
-        pmax = jtx::max(pmax, p);
+        pmax = jtx::Max(pmax, p);
         return *this;
     }
 
     JTX_HOSTDEV AABB3 &merge(const AABB3 &b) {
         pmin = jtx::min(pmin, b.pmin);
-        pmax = jtx::max(pmax, b.pmax);
+        pmax = jtx::Max(pmax, b.pmax);
         return *this;
     }
 
@@ -157,9 +157,9 @@ public:
     }
 
     [[nodiscard]] JTX_HOSTDEV Point3f lerp(const Point3f &t) const {
-        return Point3f(jtx::lerp(pmin.x, pmax.x, t.x),
-                       jtx::lerp(pmin.y, pmax.y, t.y),
-                       jtx::lerp(pmin.z, pmax.z, t.z));
+        return Point3f(jtx::Lerp(pmin.x, pmax.x, t.x),
+                       jtx::Lerp(pmin.y, pmax.y, t.y),
+                       jtx::Lerp(pmin.z, pmax.z, t.z));
     }
 
     JTX_HOSTDEV Vec3f offset(Point3f &p) const {
@@ -227,7 +227,7 @@ public:
 
     JTX_DEV AABB2(const Point2<T> &a, const Point2<T> &b) {
         pmin = jtx::min(a, b);
-        pmax = jtx::max(a, b);
+        pmax = jtx::Max(a, b);
     }
 
     JTX_DEV explicit AABB2(const Point2<T> &p) : pmin(p), pmax(p) {}
@@ -274,13 +274,13 @@ public:
 
     JTX_DEV AABB2 &merge(const Point2<T> &p) {
         pmin = jtx::min(pmin, p);
-        pmax = jtx::max(pmax, p);
+        pmax = jtx::Max(pmax, p);
         return *this;
     }
 
     JTX_DEV AABB2 &merge(const AABB2 &b) {
         pmin = jtx::min(pmin, b.pmin);
-        pmax = jtx::max(pmax, b.pmax);
+        pmax = jtx::Max(pmax, b.pmax);
         return *this;
     }
 
@@ -323,8 +323,8 @@ public:
     }
 
     [[nodiscard]] JTX_DEV Point2f lerp(const Point2f &t) const {
-        return Point2f(jtx::lerp(pmin.x, pmax.x, t.x),
-                       jtx::lerp(pmin.y, pmax.y, t.y));
+        return Point2f(jtx::Lerp(pmin.x, pmax.x, t.x),
+                       jtx::Lerp(pmin.y, pmax.y, t.y));
     }
 
     JTX_DEV Vec2f offset(Point2f &p) const {
@@ -341,7 +341,7 @@ JTX_NUM_ONLY_T
 JTX_DEV AABB3<T> merge(const AABB3<T> &a, const AABB3<T> &b) {
     AABB3<T> res;
     res.pmin = jtx::min(a.pmin, b.pmin);
-    res.pmax = jtx::max(a.pmax, b.pmax);
+    res.pmax = jtx::Max(a.pmax, b.pmax);
     return res;
 }
 
@@ -349,14 +349,14 @@ JTX_NUM_ONLY_T
 JTX_DEV AABB3<T> merge(const AABB3<T> &a, const Point3<T> &p) {
     AABB3<T> res;
     res.pmin = jtx::min(a.pmin, p);
-    res.pmax = jtx::max(a.pmax, p);
+    res.pmax = jtx::Max(a.pmax, p);
     return res;
 }
 
 JTX_NUM_ONLY_T
 JTX_DEV AABB3<T> intersect(const AABB3<T> &a, const AABB3<T> &b) {
     AABB3<T> res;
-    res.pmin = jtx::max(a.pmin, b.pmin);
+    res.pmin = jtx::Max(a.pmin, b.pmin);
     res.pmax = jtx::min(a.pmax, b.pmax);
     return res;
 }
@@ -380,9 +380,9 @@ JTX_DEV bool insideExclusive(const Point3<T> &p, const AABB3<T> &a) {
 template<typename T, typename U, typename = std::enable_if_t<std::is_arithmetic_v<T> && std::is_arithmetic_v<U>>>
 JTX_DEV auto distanceSqr(const AABB3<T> &b, const Point3<U> &p) {
     using TmU = decltype(T{} - U{});
-    TmU dx = jtx::max<TmU>(0, b.pmin.x - p.x, p.x - b.pmax.x);
-    TmU dy = jtx::max<TmU>(0, b.pmin.y - p.y, p.y - b.pmax.y);
-    TmU dz = jtx::max<TmU>(0, b.pmin.z - p.z, p.z - b.pmax.z);
+    TmU dx = jtx::Max<TmU>(0, b.pmin.x - p.x, p.x - b.pmax.x);
+    TmU dy = jtx::Max<TmU>(0, b.pmin.y - p.y, p.y - b.pmax.y);
+    TmU dz = jtx::Max<TmU>(0, b.pmin.z - p.z, p.z - b.pmax.z);
     return dx * dx + dy * dy + dz * dz;
 }
 
@@ -420,7 +420,7 @@ JTX_NUM_ONLY_T
 JTX_DEV AABB2<T> merge(const AABB2<T> &a, const AABB2<T> &b) {
     AABB2<T> res;
     res.pmin = jtx::min(a.pmin, b.pmin);
-    res.pmax = jtx::max(a.pmax, b.pmax);
+    res.pmax = jtx::Max(a.pmax, b.pmax);
     return res;
 }
 
@@ -428,14 +428,14 @@ JTX_NUM_ONLY_T
 JTX_DEV AABB2<T> merge(const AABB2<T> &a, const Point2<T> &p) {
     AABB2<T> res;
     res.pmin = jtx::min(a.pmin, p);
-    res.pmax = jtx::max(a.pmax, p);
+    res.pmax = jtx::Max(a.pmax, p);
     return res;
 }
 
 JTX_NUM_ONLY_T
 JTX_DEV AABB2<T> intersect(const AABB2<T> &a, const AABB2<T> &b) {
     AABB2<T> res;
-    res.pmin = jtx::max(a.pmin, b.pmin);
+    res.pmin = jtx::Max(a.pmin, b.pmin);
     res.pmax = jtx::min(a.pmax, b.pmax);
     return res;
 }
@@ -459,8 +459,8 @@ JTX_DEV bool insideExclusive(const Point2<T> &p, const AABB2<T> &a) {
 template<typename T, typename U, typename = std::enable_if_t<std::is_arithmetic_v<T> && std::is_arithmetic_v<U>>>
 JTX_DEV auto distanceSqr(const AABB2<T> &b, const Point2<U> &p) {
     using TmU = decltype(T{} - U{});
-    TmU dx = jtx::max<TmU>(0, b.pmin.x - p.x, p.x - b.pmax.x);
-    TmU dy = jtx::max<TmU>(0, b.pmin.y - p.y, p.y - b.pmax.y);
+    TmU dx = jtx::Max<TmU>(0, b.pmin.x - p.x, p.x - b.pmax.x);
+    TmU dy = jtx::Max<TmU>(0, b.pmin.y - p.y, p.y - b.pmax.y);
     return dx * dx + dy * dy;
 }
 

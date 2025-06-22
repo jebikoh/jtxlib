@@ -298,7 +298,7 @@ public:
     }
 
     JTX_HOSTDEV auto max() const {
-        return jtx::max(jtx::max(z, w), jtx::max(x, y));
+        return jtx::Max(jtx::Max(z, w), jtx::Max(x, y));
     }
 
     JTX_HOSTDEV T hprod() const {

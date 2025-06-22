@@ -147,7 +147,7 @@ JTX_HOSTDEV JTX_INLINE double Clamp(double val, double lo, double hi) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T max(T a, T b) {
+JTX_HOSTDEV JTX_INLINE T Max(T a, T b) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::max(a, b);
 #else
@@ -156,7 +156,7 @@ JTX_HOSTDEV JTX_INLINE T max(T a, T b) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T max(T a, T b, T c) {
+JTX_HOSTDEV JTX_INLINE T Max(T a, T b, T c) {
 #if defined(JTXLIB_CUDA_ENABLED)
     return ::max(0, ::max(a, b));
 #else

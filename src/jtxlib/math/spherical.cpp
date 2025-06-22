@@ -24,7 +24,7 @@ namespace jtx{
         float z = jtx::Abs(d.z);
 
         float r = jtx::SafeSqrt(1 - z);
-        float a = jtx::max(x, y);
+        float a = jtx::Max(x, y);
         float b = jtx::min(x, y);
         b = a == 0 ? 0 : b / a;
 

@@ -48,7 +48,7 @@ JTX_INLINE float sphericalTheta(const Vec3f &v) {
 }
 
 JTX_INLINE float sphericalPhi(const Vec3f &v) {
-    float p = jtx::atan2(v.y, v.x);
+    const float p = jtx::atan2(v.y, v.x);
     return (p < 0) ? p + 2 * JTX_PI_F : p;
 }
 
@@ -58,7 +58,7 @@ JTX_INLINE float Cos2Theta(const Vec3f &w) { return w.z * w.z; }
 
 JTX_INLINE float AbsCosTheta(const Vec3f &w) { return jtx::Abs(w.z); }
 
-JTX_INLINE float Sin2Theta(const Vec3f &w) { return jtx::max(0.0f, 1.0f - Cos2Theta(w)); }
+JTX_INLINE float Sin2Theta(const Vec3f &w) { return jtx::Max(0.0f, 1.0f - Cos2Theta(w)); }
 
 JTX_INLINE float SinTheta(const Vec3f &w) { return jtx::Sqrt(Sin2Theta(w)); }
 
@@ -66,12 +66,12 @@ JTX_INLINE float TanTheta(const Vec3f &w) { return SinTheta(w) / CosTheta(w); }
 
 JTX_INLINE float Tan2Theta(const Vec3f &w) {
     const float cos2Theta = Cos2Theta(w);
-    const float sin2Theta = jtx::max(0.0f, 1.0f - cos2Theta);
+    const float sin2Theta = jtx::Max(0.0f, 1.0f - cos2Theta);
     return sin2Theta / cos2Theta;
 }
 
 JTX_INLINE float Tan2Theta(const Vec3f &w, const float cos2Theta) {
-    const float sin2Theta = jtx::max(0.0f, 1.0f - cos2Theta);
+    const float sin2Theta = jtx::Max(0.0f, 1.0f - cos2Theta);
     return sin2Theta / cos2Theta;
 }
 

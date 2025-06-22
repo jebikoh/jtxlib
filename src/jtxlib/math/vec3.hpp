@@ -373,7 +373,7 @@ public:
     }
 
     [[nodiscard]] JTX_HOSTDEV auto MaxComponent() const {
-        return jtx::max(z, jtx::max(x, y));
+        return jtx::Max(z, jtx::Max(x, y));
     }
 
     [[nodiscard]] JTX_HOSTDEV T hprod() const {
