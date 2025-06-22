@@ -101,7 +101,7 @@ public:
     }
 };
 
-JTX_HOSTDEV JTX_INLINE float dot(const Quaternion &q1, const Quaternion &q2) { return q1.dot(q2); }
+JTX_HOSTDEV JTX_INLINE float Dot(const Quaternion &q1, const Quaternion &q2) { return q1.dot(q2); }
 JTX_HOSTDEV JTX_INLINE Quaternion Normalize(const Quaternion &q) { return q / q.len(); }
 JTX_HOSTDEV JTX_INLINE float angle(const Quaternion &q1, const Quaternion &q2) { return q1.angle(q2); }
 

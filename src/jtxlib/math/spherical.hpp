@@ -20,7 +20,7 @@ JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
     Vec3f cd = c.cross(d);
     Vec3f da = d.cross(a);
 
-    if (ab.LenSqr() == 0 || bc.LenSqr() == 0 || cd.LenSqr() == 0 || da.LenSqr() == 0) return 0;
+    if (ab.LengthSquared() == 0 || bc.LengthSquared() == 0 || cd.LengthSquared() == 0 || da.LengthSquared() == 0) return 0;
 
     ab.Normalize();
     bc.Normalize();
@@ -217,7 +217,7 @@ JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
 
     float theta_r = theta_o - theta_a;
     Vec3f wr = jtx::Cross(a.dir, b.dir);
-    if (wr.LenSqr() == 0) return DirectionCone::entireSphere();
+    if (wr.LengthSquared() == 0) return DirectionCone::entireSphere();
     auto w = jtx::rotate(jtx::degrees(theta_r), wr).applyToVec(a.dir);
     return {w, jtx::cos(theta_o)};
 }

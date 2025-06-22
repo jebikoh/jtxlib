@@ -10,17 +10,17 @@
 namespace jtx {
 #pragma region Dot Product
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T dot(const Vec2<T> &a, const Vec2<T> &b) {
+JTX_HOSTDEV JTX_INLINE T Dot(const Vec2<T> &a, const Vec2<T> &b) {
     return a.x * b.x + a.y * b.y;
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T dot(const Vec3<T> &a, const Vec3<T> &b) {
+JTX_HOSTDEV JTX_INLINE T Dot(const Vec3<T> &a, const Vec3<T> &b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV JTX_INLINE T dot(const Vec4<T> &a, const Vec4<T> &b) {
+JTX_HOSTDEV JTX_INLINE T Dot(const Vec4<T> &a, const Vec4<T> &b) {
     return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 #pragma endregion
@@ -240,17 +240,17 @@ JTX_HOSTDEV JTX_INLINE Vec3<T> gramSchmidt(const Vec3<T> &a, const Vec3<T> &b) {
 #pragma region Distance
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distanceSqr(const Vec2<T> &a, const Vec2<T> &b) {
-    return (a - b).LenSqr();
+    return (a - b).LengthSquared();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distanceSqr(const Vec3<T> &a, const Vec3<T> &b) {
-    return (a - b).LenSqr();
+    return (a - b).LengthSquared();
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE float distanceSqr(const Vec4<T> &a, const Vec4<T> &b) {
-    return (a - b).LenSqr();
+    return (a - b).LengthSquared();
 }
 
 JTX_NUM_ONLY_T
@@ -290,14 +290,14 @@ JTX_HOSTDEV JTX_INLINE Vec3<T> align(const Vec3<T> &a, const Vec3<T> &b) {
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec3<T> reflect(const Vec3<T> &v, const Vec3<T> &n) {
-    return v - 2 * dot(v, n) * n;
+    return v - 2 * Dot(v, n) * n;
 }
 
 JTX_NUM_ONLY_T
 JTX_HOSTDEV JTX_INLINE Vec3<T> refract(const Vec3<T> &uv, const Vec3<T> &n, T etai_over_etat) {
-    auto cos_theta = ::fminf(jtx::dot(-uv, n), 1.0);
+    auto cos_theta = ::fminf(jtx::Dot(-uv, n), 1.0);
     auto r_out_perp = etai_over_etat * (uv + cos_theta * n);
-    auto r_out_prll = -::sqrtf(::fabs(1.0 - r_out_perp.LenSqr())) * n;
+    auto r_out_prll = -::sqrtf(::fabs(1.0 - r_out_perp.LengthSquared())) * n;
     return r_out_perp + r_out_prll;
 }
 #pragma endregion

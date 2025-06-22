@@ -179,12 +179,12 @@ namespace jtx {
         Mat4 r;
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
-                float uu = jtx::dot(u, u);
-                float vv = jtx::dot(v, v);
+                float uu = jtx::Dot(u, u);
+                float vv = jtx::Dot(v, v);
                 r[i][j] = ((i == j) ? 1.0f : 0.0f) -
                           (2 / uu) * u[i] * u[j] -
                           (2 / vv) * v[i] * v[j] +
-                          (4 * jtx::dot(u, v)) / (uu * vv) * v[i] * u[j];
+                          (4 * jtx::Dot(u, v)) / (uu * vv) * v[i] * u[j];
             }
         }
 

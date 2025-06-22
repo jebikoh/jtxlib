@@ -336,11 +336,11 @@ public:
         return jtx::Abs(Dot(other));
     }
 
-    [[nodiscard]] JTX_HOSTDEV float LenSqr() const {
+    [[nodiscard]] JTX_HOSTDEV float LengthSquared() const {
         return x * x + y * y + z * z;
     }
 
-    [[nodiscard]] JTX_HOSTDEV float Length() const { return jtx::Sqrt(LenSqr()); }
+    [[nodiscard]] JTX_HOSTDEV float Length() const { return jtx::Sqrt(LengthSquared()); }
 
     JTX_HOSTDEV Vec3 &Normalize() {
         float l = Length();

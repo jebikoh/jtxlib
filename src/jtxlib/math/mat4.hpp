@@ -495,9 +495,9 @@ JTX_HOSTDEV Mat4 rotateFromTo(const Vec3f &from, const Vec3f &to);
 JTX_HOSTDEV JTX_INLINE Mat4
 lookAt(const Vec3f &right, const Vec3f &vup, const Vec3f &direction, const Vec3f &position) {
     return {
-            right.x, right.y, right.z, -jtx::dot(right, position),
-            vup.x, vup.y, vup.z, -jtx::dot(vup, position),
-            direction.x, direction.y, direction.z, -jtx::dot(direction, position),
+            right.x, right.y, right.z, -jtx::Dot(right, position),
+            vup.x, vup.y, vup.z, -jtx::Dot(vup, position),
+            direction.x, direction.y, direction.z, -jtx::Dot(direction, position),
             0.0f, 0.0f, 0.0f, 1.0f};
 }
 
