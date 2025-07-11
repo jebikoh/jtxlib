@@ -97,7 +97,7 @@ public:
     }
 
     [[nodiscard]] JTX_HOSTDEV bool equals(const Quaternion &q, float epsilon = JTX_EPSILON) const {
-        return jtx::equals(w, q.w, epsilon) && v.equals(q.v, epsilon);
+        return jtx::Equals(w, q.w, epsilon) && v.equals(q.v, epsilon);
     }
 };
 
@@ -112,7 +112,7 @@ JTX_HOSTDEV JTX_INLINE Quaternion slerp(const Quaternion &q1, const Quaternion &
     return sinXOverX((1 - t) * theta) / sxoxTheta * (1 - t) * q1 + (sinXOverX(t * theta) / sxoxTheta) * t * q2;
 }
 
-JTX_HOSTDEV JTX_INLINE bool equals(const Quaternion &a, const Quaternion &b, float epsilon = JTX_EPSILON) {
+JTX_HOSTDEV JTX_INLINE bool Equals(const Quaternion &a, const Quaternion &b, float epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 }// namespace jtx

@@ -243,8 +243,8 @@ public:
 
     //region Member functions
     JTX_HOSTDEV bool equals(const Vec4 &other, float epsilon = JTX_EPSILON) const {
-        return jtx::equals(x, other.x, epsilon) && jtx::equals(y, other.y, epsilon) &&
-               jtx::equals(z, other.z, epsilon) && jtx::equals(w, other.w, epsilon);
+        return jtx::Equals(x, other.x, epsilon) && jtx::Equals(y, other.y, epsilon) &&
+               jtx::Equals(z, other.z, epsilon) && jtx::Equals(w, other.w, epsilon);
     }
 
     [[nodiscard]] JTX_HOSTDEV T dot(const Vec4 &other) const {
@@ -319,8 +319,8 @@ typedef Point4<uint32_t> Point4u;
 typedef Point4<float> Point4f;
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const Vec4<T> &a, const Vec4<T> &b, float epsilon = JTX_EPSILON) {
-    return a.equals(b, epsilon);
+JTX_HOSTDEV bool Equals(const Vec4<T> &a, const Vec4<T> &b, float epsilon = JTX_EPSILON) {
+    return a.Equals(b, epsilon);
 }
 
 JTX_HOST JTX_INLINE std::string toString(const Vec4f &vec) {

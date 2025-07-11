@@ -211,7 +211,7 @@ public:
 
     //region Member functions
     [[nodiscard]] JTX_HOSTDEV bool equals(const Vec2 &other, float epsilon = JTX_EPSILON) const {
-        return jtx::equals(x, other.x, epsilon) && jtx::equals(y, other.y, epsilon);
+        return jtx::Equals(x, other.x, epsilon) && jtx::Equals(y, other.y, epsilon);
     }
 
     [[nodiscard]] JTX_HOSTDEV T dot(const Vec2 &other) const {
@@ -291,7 +291,7 @@ JTX_HOST JTX_INLINE std::string toString(const Vec2i &vec) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const Vec2<T> &a, const Vec2<T> &b, T epsilon = JTX_EPSILON) {
-    return a.equals(b, epsilon);
+JTX_HOSTDEV bool Equals(const Vec2<T> &a, const Vec2<T> &b, T epsilon = JTX_EPSILON) {
+    return a.Equals(b, epsilon);
 }
 }// namespace jtx

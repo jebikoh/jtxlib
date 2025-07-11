@@ -80,7 +80,7 @@ public:
 
     //region Member functions
     JTX_HOSTDEV bool equals(const AABB3 &other, T epsilon) const {
-        return pmin.equals(other.pmin, epsilon) && pmax.equals(other.pmax, epsilon);
+        return pmin.Equals(other.pmin, epsilon) && pmax.Equals(other.pmax, epsilon);
     }
 
     // Modified from https://pbr-book.org/4ed/Geometry_and_Transformations/Bounding_Boxes
@@ -262,7 +262,7 @@ public:
 
     //region Member functions
     JTX_DEV bool equals(const AABB2 &other, T epsilon) const {
-        return pmin.equals(other.pmin, epsilon) && pmax.equals(other.pmax, epsilon);
+        return pmin.Equals(other.pmin, epsilon) && pmax.Equals(other.pmax, epsilon);
     }
 
     // Modified from https://pbr-book.org/4ed/Geometry_and_Transformations/Bounding_Boxes
@@ -338,7 +338,7 @@ public:
 
 //region AABB3 functions
 JTX_NUM_ONLY_T
-JTX_DEV AABB3<T> merge(const AABB3<T> &a, const AABB3<T> &b) {
+JTX_DEV AABB3<T> Merge(const AABB3<T> &a, const AABB3<T> &b) {
     AABB3<T> res;
     res.pmin = jtx::min(a.pmin, b.pmin);
     res.pmax = jtx::Max(a.pmax, b.pmax);
@@ -346,7 +346,7 @@ JTX_DEV AABB3<T> merge(const AABB3<T> &a, const AABB3<T> &b) {
 }
 
 JTX_NUM_ONLY_T
-JTX_DEV AABB3<T> merge(const AABB3<T> &a, const Point3<T> &p) {
+JTX_DEV AABB3<T> Merge(const AABB3<T> &a, const Point3<T> &p) {
     AABB3<T> res;
     res.pmin = jtx::min(a.pmin, p);
     res.pmax = jtx::Max(a.pmax, p);
@@ -368,7 +368,7 @@ JTX_DEV bool overlaps(const AABB3<T> &a, const AABB3<T> &b) {
 
 // Added these because the syntax a.inside(p) is semantically confusing
 JTX_NUM_ONLY_T
-JTX_DEV bool inside(const Point3<T> &p, const AABB3<T> &a) {
+JTX_DEV bool Inside(const Point3<T> &p, const AABB3<T> &a) {
     return a.inside(p);
 }
 
@@ -410,14 +410,14 @@ JTX_DEV AABB3<T> shrink(const AABB3<T> &a, T delta) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const AABB3<T> &a, const AABB3<T> &b, T epsilon = JTX_EPSILON) {
-    return a.equals(b, epsilon);
+JTX_HOSTDEV bool Equals(const AABB3<T> &a, const AABB3<T> &b, T epsilon = JTX_EPSILON) {
+    return a.Equals(b, epsilon);
 }
 //endregion
 
 //region AABB2 functions
 JTX_NUM_ONLY_T
-JTX_DEV AABB2<T> merge(const AABB2<T> &a, const AABB2<T> &b) {
+JTX_DEV AABB2<T> Merge(const AABB2<T> &a, const AABB2<T> &b) {
     AABB2<T> res;
     res.pmin = jtx::min(a.pmin, b.pmin);
     res.pmax = jtx::Max(a.pmax, b.pmax);
@@ -425,7 +425,7 @@ JTX_DEV AABB2<T> merge(const AABB2<T> &a, const AABB2<T> &b) {
 }
 
 JTX_NUM_ONLY_T
-JTX_DEV AABB2<T> merge(const AABB2<T> &a, const Point2<T> &p) {
+JTX_DEV AABB2<T> Merge(const AABB2<T> &a, const Point2<T> &p) {
     AABB2<T> res;
     res.pmin = jtx::min(a.pmin, p);
     res.pmax = jtx::Max(a.pmax, p);
@@ -447,7 +447,7 @@ JTX_DEV bool overlaps(const AABB2<T> &a, const AABB2<T> &b) {
 
 // Added these because the syntax a.inside(p) is semantically confusing
 JTX_NUM_ONLY_T
-JTX_DEV bool inside(const Point2<T> &p, const AABB2<T> &a) {
+JTX_DEV bool Inside(const Point2<T> &p, const AABB2<T> &a) {
     return a.inside(p);
 }
 
@@ -488,8 +488,8 @@ JTX_DEV AABB2<T> shrink(const AABB2<T> &a, T delta) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const AABB2<T> &a, const AABB2<T> &b, T epsilon = JTX_EPSILON) {
-    return a.equals(b, epsilon);
+JTX_HOSTDEV bool Equals(const AABB2<T> &a, const AABB2<T> &b, T epsilon = JTX_EPSILON) {
+    return a.Equals(b, epsilon);
 }
 //endregion
 

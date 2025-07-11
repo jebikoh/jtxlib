@@ -44,8 +44,8 @@ public:
     }
 
     JTX_DEV bool equals(const Ray &other, T epsilon) const {
-        return origin.equals(other.origin, epsilon) && dir.equals(other.dir, epsilon) &&
-               jtx::equals(time, other.time, epsilon);
+        return origin.Equals(other.origin, epsilon) && dir.Equals(other.dir, epsilon) &&
+               jtx::Equals(time, other.time, epsilon);
     }
 
     [[nodiscard]] JTX_DEV Point3<T> At(T t) const {
@@ -101,9 +101,9 @@ public:
     }
 
     JTX_HOSTDEV bool equals(const RayDifferential &other, T epsilon) const {
-        return Ray<T>::equals(other, epsilon) && rxOrigin.equals(other.rxOrigin, epsilon) &&
-               ryOrigin.equals(other.ryOrigin, epsilon) && rxDirection.equals(other.rxDirection, epsilon) &&
-               ryDirection.equals(other.ryDirection, epsilon) && hasDiffs == other.hasDiffs;
+        return Ray<T>::Equals(other, epsilon) && rxOrigin.Equals(other.rxOrigin, epsilon) &&
+               ryOrigin.Equals(other.ryOrigin, epsilon) && rxDirection.Equals(other.rxDirection, epsilon) &&
+               ryDirection.Equals(other.ryDirection, epsilon) && hasDiffs == other.hasDiffs;
     }
 
     JTX_HOSTDEV void scale(T s) {
@@ -127,13 +127,13 @@ JTX_HOST std::string toString(const Ray<T> &ray) {
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const Ray<T> &a, const Ray<T> &b, T epsilon = JTX_EPSILON) {
-    return a.equals(b, epsilon);
+JTX_HOSTDEV bool Equals(const Ray<T> &a, const Ray<T> &b, T epsilon = JTX_EPSILON) {
+    return a.Equals(b, epsilon);
 }
 
 JTX_NUM_ONLY_T
-JTX_HOSTDEV bool equals(const RayDifferential<T> &a, const RayDifferential<T> &b, T epsilon = JTX_EPSILON) {
-    return a.equals(b, epsilon);
+JTX_HOSTDEV bool Equals(const RayDifferential<T> &a, const RayDifferential<T> &b, T epsilon = JTX_EPSILON) {
+    return a.Equals(b, epsilon);
 }
 
 }// namespace jtx

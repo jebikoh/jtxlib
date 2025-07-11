@@ -92,7 +92,7 @@ JTX_HOSTDEV JTX_INLINE
 JTX_FP_ONLY_T
 JTX_HOST
 JTX_INLINE bool
-        equals(T a, T b, T epsilon = JTX_EPSILON) {
+        Equals(T a, T b, T epsilon = JTX_EPSILON) {
     return std::abs(a - b) < epsilon;
 }
 
