@@ -116,7 +116,7 @@ JTX_HOSTDEV T Abs(T v) {
 #endif
     }
 
-    JTX_HOSTDEV JTX_INLINE float atan2(float y, float x) {
+    JTX_HOSTDEV JTX_INLINE float Atan2(float y, float x) {
 #if defined(JTXLIB_CUDA_ENABLED)
         return ::atan2f(y, x);
 #else
@@ -134,12 +134,12 @@ JTX_HOSTDEV T Abs(T v) {
         return jtx::asin(jtx::Clamp(theta, -1.0, 1.0));
     }
 
-    JTX_HOSTDEV JTX_INLINE float clampAcos(float theta) {
+    JTX_HOSTDEV JTX_INLINE float ClampAcos(float theta) {
         ASSERT(theta >= -1.0001f && theta <= 1.0001f);
         return jtx::acos(jtx::Clamp(theta, -1.0f, 1.0f));
     }
 
-    JTX_HOSTDEV JTX_INLINE double clampAcos(double theta) {
+    JTX_HOSTDEV JTX_INLINE double ClampAcos(double theta) {
         ASSERT(theta >= -1.0001 && theta <= 1.0001);
         return jtx::acos(jtx::Clamp(theta, -1.0, 1.0));
     }

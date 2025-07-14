@@ -11,7 +11,7 @@
 namespace jtx {
 //region Spherical coordinates
 JTX_INLINE float sphericalTriangleArea(Vec3f &a, Vec3f &b, Vec3f &c) {
-    return jtx::Abs(2 * jtx::atan2(a.Dot(b.cross(c)), 1 + a.Dot(b) + b.Dot(c) + c.Dot(a)));
+    return jtx::Abs(2 * jtx::Atan2(a.Dot(b.cross(c)), 1 + a.Dot(b) + b.Dot(c) + c.Dot(a)));
 }
 
 JTX_INLINE float sphericalQuadArea(Vec3f &a, Vec3f &b, Vec3f &c, Vec3f &d) {
@@ -44,11 +44,11 @@ JTX_INLINE Vec3f sphericalToCartesian(float sinTheta, float cosTheta, float phi)
 
 JTX_INLINE float sphericalTheta(const Vec3f &v) {
     ASSERT(v.lenSqr() == 1.0f);
-    return jtx::clampAcos(v.z);
+    return ClampAcos(v.z);
 }
 
 JTX_INLINE float sphericalPhi(const Vec3f &v) {
-    const float p = jtx::atan2(v.y, v.x);
+    const float p = Atan2(v.y, v.x);
     return (p < 0) ? p + 2 * JTX_PI_F : p;
 }
 
@@ -204,8 +204,8 @@ JTX_INLINE DirectionCone merge(const DirectionCone &a, const DirectionCone &b) {
     if (b.isEmpty()) return a;
 
     // Case 1: One cone is inside the other
-    float theta_a = jtx::clampAcos(a.cosTheta);
-    float theta_b = jtx::clampAcos(b.cosTheta);
+    float theta_a = jtx::ClampAcos(a.cosTheta);
+    float theta_b = jtx::ClampAcos(b.cosTheta);
     float theta_d = jtx::angle(a.dir, b.dir);
 
     if (jtx::min(theta_d + theta_b, JTX_PI_F) <= theta_a) return a;
