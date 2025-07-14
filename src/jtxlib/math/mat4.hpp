@@ -528,7 +528,7 @@ JTX_HOSTDEV JTX_INLINE Mat4 orthographic(float left, float right, float top, flo
 
 JTX_HOST std::string toString(const Mat4 &mat);
 
-JTX_HOSTDEV JTX_INLINE bool equals(const Mat4 &a, const Mat4 &b, float epsilon = JTX_EPSILON) {
+JTX_HOSTDEV JTX_INLINE bool Equals(const Mat4 &a, const Mat4 &b, float epsilon = JTX_EPSILON) {
     return a.equals(b, epsilon);
 }
 

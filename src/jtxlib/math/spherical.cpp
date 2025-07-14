@@ -1,7 +1,7 @@
 #include <jtxlib/math/spherical.hpp>
 
 namespace jtx{
-    Vec3f equalAreaSquareToSphere(const Point2f &p) {
+    Vec3f EqualAreaSquareToSphere(const Point2f &p) {
         ASSERT(p.x >= 0 && p.x <= 1 && p.y >= 0 && p.y <= 1);
         float u = 2 * p.x - 1;
         float v = 2 * p.y - 1;
@@ -17,7 +17,7 @@ namespace jtx{
                 jtx::CopySign(1 - r * r, signedDist)};
     }
 
-    Point2f equalAreaSphereToSquare(const Point3f &d) {
+    Point2f EqualAreaSphereToSquare(const Point3f &d) {
         ASSERT(d.lenSqr() < 1.001f && d.lenSqr() > 0.999f);
         float x = jtx::Abs(d.x);
         float y = jtx::Abs(d.y);
