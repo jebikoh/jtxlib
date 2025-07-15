@@ -218,7 +218,7 @@ JTX_INLINE DirectionCone Merge(const DirectionCone &a, const DirectionCone &b) {
     float theta_r = theta_o - theta_a;
     Vec3f wr = jtx::Cross(a.dir, b.dir);
     if (wr.LengthSquared() == 0) return DirectionCone::EntireSphere();
-    auto w = jtx::rotate(jtx::degrees(theta_r), wr).applyToVec(a.dir);
+    auto w = jtx::rotate(jtx::Degrees(theta_r), wr).applyToVec(a.dir);
     return {w, jtx::cos(theta_o)};
 }
 

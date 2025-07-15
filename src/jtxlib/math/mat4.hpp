@@ -457,8 +457,8 @@ JTX_HOSTDEV JTX_INLINE Mat4 scale(const jtx::Vec3f &v) {
 }
 
 JTX_HOSTDEV JTX_INLINE Mat4 rotateX(float theta) {
-    float sinTheta = jtx::sin(jtx::radians(theta));
-    float cosTheta = jtx::cos(jtx::radians(theta));
+    float sinTheta = jtx::sin(jtx::Radians(theta));
+    float cosTheta = jtx::cos(jtx::Radians(theta));
     return {
             1.0f, 0.0f, 0.0f, 0.0f,
             0.0f, cosTheta, -sinTheta, 0.0f,
@@ -467,8 +467,8 @@ JTX_HOSTDEV JTX_INLINE Mat4 rotateX(float theta) {
 }
 
 JTX_HOSTDEV JTX_INLINE Mat4 rotateY(float theta) {
-    float sinTheta = jtx::sin(jtx::radians(theta));
-    float cosTheta = jtx::cos(jtx::radians(theta));
+    float sinTheta = jtx::sin(jtx::Radians(theta));
+    float cosTheta = jtx::cos(jtx::Radians(theta));
     return {
             cosTheta, 0.0f, sinTheta, 0.0f,
             0.0f, 1.0f, 0.0f, 0.0f,
@@ -477,8 +477,8 @@ JTX_HOSTDEV JTX_INLINE Mat4 rotateY(float theta) {
 }
 
 JTX_HOSTDEV JTX_INLINE Mat4 rotateZ(float theta) {
-    float sinTheta = jtx::sin(jtx::radians(theta));
-    float cosTheta = jtx::cos(jtx::radians(theta));
+    float sinTheta = jtx::sin(jtx::Radians(theta));
+    float cosTheta = jtx::cos(jtx::Radians(theta));
     return {
             cosTheta, -sinTheta, 0.0f, 0.0f,
             sinTheta, cosTheta, 0.0f, 0.0f,
@@ -509,7 +509,7 @@ JTX_HOSTDEV JTX_INLINE Mat4 lookAt(const Vec3f &position, const Vec3f &target, c
 }
 
 JTX_HOSTDEV JTX_INLINE Mat4 perspective(float fov, float aspect, float near, float far) {
-    float invTanAng = 1.0f / std::tan(jtx::radians(fov) / 2.0f);
+    float invTanAng = 1.0f / std::tan(jtx::Radians(fov) / 2.0f);
     return {
             invTanAng / aspect, 0.0f, 0.0f, 0.0f,
             0.0f, invTanAng, 0.0f, 0.0f,

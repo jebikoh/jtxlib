@@ -144,16 +144,16 @@ JTX_HOSTDEV T Abs(T v) {
         return jtx::acos(jtx::Clamp(theta, -1.0, 1.0));
     }
 
-    JTX_HOSTDEV JTX_INLINE float sinXOverX(float theta) {
+    JTX_HOSTDEV JTX_INLINE float SinXOverX(float theta) {
         if (1.0f + theta * theta == 1.0f) return 1.0f;
         return jtx::sin(theta) / theta;
     }
 
-    JTX_HOSTDEV JTX_INLINE float radians(float deg) {
+    JTX_HOSTDEV JTX_INLINE float Radians(float deg) {
         return deg * JTX_PI_F / 180.0f;
     }
 
-    JTX_HOSTDEV JTX_INLINE float degrees(float rad) {
+    JTX_HOSTDEV JTX_INLINE float Degrees(float rad) {
         return rad * 180.0f / JTX_PI_F;
     }
 // clang-format on

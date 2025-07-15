@@ -108,8 +108,8 @@ JTX_HOSTDEV JTX_INLINE float angle(const Quaternion &q1, const Quaternion &q2) {
 JTX_HOSTDEV JTX_INLINE Quaternion slerp(const Quaternion &q1, const Quaternion &q2, float t) {
     // One again: http://www.plunk.org/~hatch/rightway.html
     const float theta = q1.angle(q2);
-    const float sxoxTheta = sinXOverX(theta);
-    return sinXOverX((1 - t) * theta) / sxoxTheta * (1 - t) * q1 + (sinXOverX(t * theta) / sxoxTheta) * t * q2;
+    const float sxoxTheta = SinXOverX(theta);
+    return SinXOverX((1 - t) * theta) / sxoxTheta * (1 - t) * q1 + (SinXOverX(t * theta) / sxoxTheta) * t * q2;
 }
 
 JTX_HOSTDEV JTX_INLINE bool Equals(const Quaternion &a, const Quaternion &b, float epsilon = JTX_EPSILON) {
