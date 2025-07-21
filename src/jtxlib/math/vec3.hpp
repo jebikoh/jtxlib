@@ -405,6 +405,8 @@ public:
         return {jtx::random<T>(min, max), jtx::random<T>(min, max), jtx::random<T>(min, max)};
     }
 #pragma endregion
+
+    bool HasZero() const { return x * y * z == 0.0f; }
 };
 
 template<typename T>
